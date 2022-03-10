@@ -43,7 +43,7 @@
         android:id="@+id/textView"
         android:layout_width="171dp"
         android:layout_height="80dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="224dp"
         android:text="Welcome,\nAre You a "
         android:textAlignment="center"
         android:textSize="@dimen/defaultFontSize"
