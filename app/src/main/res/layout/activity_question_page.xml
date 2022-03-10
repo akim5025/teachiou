@@ -25,6 +25,7 @@
     <SearchView
         android:layout_width="34dp"
         android:layout_height="39dp"
+        android:background="@drawable/round"
         tools:layout_editor_absoluteX="3dp"
         tools:layout_editor_absoluteY="9dp">
 
@@ -41,13 +42,14 @@
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
-        android:layout_width="371dp"
-        android:layout_height="46dp"
+        android:layout_width="372dp"
+        android:layout_height="38dp"
+        android:background="@drawable/round"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Find Question"
+        android:text="  Find Question"
         tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="2dp" />
+        tools:layout_editor_absoluteY="9dp" />
 
     <TextView
         android:id="@+id/textView"
