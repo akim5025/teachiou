@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class ActivityQuestionPage extends AppCompatActivity {
-
+    // CITATION: Code from Wishlist project was used as starting point
     private ArrayList<Question> myList;
     private static final String TAG = "Denna";
 
