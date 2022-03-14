@@ -10,7 +10,12 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation"></FrameLayout>
+        android:layout_above="@id/bottom_navigation">
+
+
+    </FrameLayout>
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -19,8 +24,13 @@
         android:layout_alignParentBottom="true"
         app:background="?android:attr/windowBackground"
         app:itemRippleColor="@color/white"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottom_navigation" />
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:labelVisibilityMode="selected"
+        app:menu="@menu/bottom_navigation" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 
 </RelativeLayout>
