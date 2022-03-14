@@ -20,4 +20,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void testSignUp(View v) {
+        Intent intent = new Intent(this, roleSelection.class);
+        startActivity(intent);
+    }
+
 }

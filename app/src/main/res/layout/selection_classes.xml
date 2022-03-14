@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".ClassSelection">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Which classes are you in?"
+        android:textSize="@dimen/defaultFontSize"
+        android:paddingTop="@dimen/defaultPadding"
+        android:paddingLeft="@dimen/defaultPadding"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="475dp">
+
+        <LinearLayout
+            android:id="@+id/layout_checkList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/checkbox_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:text="Mobile App Development"
+                android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:text="Calc BC"
+                android:textSize="@dimen/smallFontSize" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/classSelected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:onClick="onClassSelected"
+        />
+
+
+    <!-- https://developer.android.com/guide/topics/ui/controls/checkbox -->
+</LinearLayout>

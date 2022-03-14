@@ -5,50 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--radio button for dark theme-->
-
-
     <RadioButton
-        android:id="@+id/idRBLight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="5dp"
-        android:padding="5dp"
-        android:text="Teacher"
-        android:textSize="@dimen/smallFontSize"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RadioButton
-        android:id="@+id/idRBDark"
+        android:id="@+id/student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="5dp"
         android:layout_weight="1"
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"
         android:padding="5dp"
         android:text="Student"
         android:textSize="@dimen/smallFontSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.408" />
+        app:layout_constraintVertical_bias="0.418" />
+
+    <RadioButton
+        android:id="@+id/teacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"
+        android:padding="5dp"
+        android:text="Teacher"
+        android:textSize="@dimen/smallFontSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.506" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="171dp"
         android:layout_height="80dp"
-        android:layout_marginTop="224dp"
+        android:layout_marginTop="152dp"
         android:text="Welcome,\nAre You a "
         android:textAlignment="center"
         android:textSize="@dimen/defaultFontSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="196dp"
+        android:text="Continue"
+        android:onClick="onSelected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
