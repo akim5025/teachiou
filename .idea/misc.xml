@@ -13,6 +13,12 @@
         <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/selection_classes.xml" value="0.358695652173913" />
         <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/selection_role.xml" value="0.358695652173913" />
         <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/menu/bottom_navigation.xml" value="0.35260416666666666" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/Users/zhou1276/Documents/GitHub/teachiou/app/src/main/res/drawable/round.xml" value="0.2985" />
+        <entry key="..\:/Users/zhou1276/Documents/GitHub/teachiou/app/src/main/res/layout/activity_question_page.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/zhou1276/Documents/GitHub/teachiou/app/src/main/res/layout/activity_view_question.xml" value="0.3482789855072464" />
+>>>>>>> 94bca1f5b96bde77602b71326c6f42df5d04b40f
       </map>
     </option>
   </component>
