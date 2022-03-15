@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "620843618350",
+    "project_id": "mobileappfinalprojectv2",
+    "storage_bucket": "mobileappfinalprojectv2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620843618350:android:ba45bdda94799d6d624fbf",
+        "android_client_info": {
+          "package_name": "com.example.teachiou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620843618350-mthd68qgp54189adeusd2ru6re7iglv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX3PmQ-moz5Sd39gPV3x0PXoKDxkye3XA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620843618350-mthd68qgp54189adeusd2ru6re7iglv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
