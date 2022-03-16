@@ -33,7 +33,7 @@ public class ViewQuestion extends AppCompatActivity {
         KeyListener variable;
         variable = answerET.getKeyListener();
         answerET.setKeyListener(null);
-
+        // when teacher edits/answers isAnswered is set to true
         if (isTeacher){
             answerET.setKeyListener(variable);
         }

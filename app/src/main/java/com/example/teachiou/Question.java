@@ -58,13 +58,22 @@ public class Question implements Parcelable {
         this.isAnswered = isAnswered;
     }
 
-    public Question(String body, String title, String answer, String docID,int time, boolean isAnswered) {
+    public Question(String body, String title, String answer, String docID ,int time, boolean isAnswered) {
         this.body = body;
         this.title = title;
         this.answer = answer;
         this.docID = docID;
         this.time = time;
         this.isAnswered = isAnswered;
+    }
+
+    public Question(String body, String title) {
+        this.body = body;
+        this.title = title;
+        this.answer = "";
+        this.docID = "";
+        this.time = 0;
+        this.isAnswered = false;
     }
 
     public String getBody() {
