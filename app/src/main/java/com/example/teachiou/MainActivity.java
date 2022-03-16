@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signIn(String email, String password) {
+
+        // Intent intent = new Intent(this, FragmentHome.class); SEND TO HOME PAGE
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -55,8 +58,12 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.i("Denna", "signInWithEmail:success");
+                            Toast.makeText(MainActivity.this, "Authentication complete.",
+                                    Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            authStatusTV.setText("Signed in " + user.getEmail());
+
+                            // startActivity(intent);  SEND TO HOME PAGE
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.i("Denna", "signInWithEmail:failure", task.getException());
@@ -68,20 +75,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void signOut(String email, String password) {
-        mAuth.signOut();
-        authStatusTV.setText("Signed out");
+    public void handleAuthChange(View v) {
+        String email = emailET.getText().toString();
+        String password = passwordET.getText().toString();
+        Log.i("Denna",  email + " " + password);
+
+        switch (v.getId()) {
+            case R.id.signInButton:
+                signIn(email, password);
+                break;
+        }
     }
 
+    public void signUpScreen(View v) {
+        Intent intent = new Intent(this, SignUpScreen.class);
+        startActivity(intent);
+    }
 
     public void test(View v) {
         Intent intent = new Intent(this, dashboard.class);
         startActivity(intent);
     }
 
-    // public void signUp(View v) {
-    //     Intent intent = new Intent(this, SignUpScreen.class);
-    //     startActivity(intent);
-    // }
+    public void signOut(String email, String password) {
+        mAuth.signOut();
+        authStatusTV.setText("Signed out");
+    }
 
 }
