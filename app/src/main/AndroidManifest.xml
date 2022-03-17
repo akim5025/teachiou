@@ -18,8 +18,12 @@
         <activity
             android:name=".dashboard"
             android:exported="false" />
+
         <activity android:name=".roleSelection" />
         <activity android:name=".ClassSelection" />
+
+        <activity android:name=".SignUpScreen"></activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
