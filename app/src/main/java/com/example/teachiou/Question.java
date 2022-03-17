@@ -3,7 +3,6 @@ package com.example.teachiou;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-// CITATION: Code from Wishlist project was used as starting point.
 public class Question implements Parcelable {
     private String body, title, answer, docID, imageID;
     private int time;
