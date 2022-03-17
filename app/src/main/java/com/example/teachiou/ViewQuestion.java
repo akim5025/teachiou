@@ -4,9 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.text.method.KeyListener;
 import android.widget.EditText;
 import android.widget.TextView;
+
+
+
+
 
 // CITATION: Code from WishList project was used as starting point
 public class ViewQuestion extends AppCompatActivity {
@@ -14,11 +20,16 @@ public class ViewQuestion extends AppCompatActivity {
     private EditText answerET;
     private TextView bodyTV;
     private Question q;
+    private EditText answerET;
+    private boolean isTeacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_question);
+
+
+        //answerET = findViewById(R.id.answerET);
 
         answerET = findViewById(R.id.answerET);
         bodyTV = findViewById(R.id.bodyTV);
@@ -26,6 +37,7 @@ public class ViewQuestion extends AppCompatActivity {
         Intent intent = getIntent();
         q = intent.getParcelableExtra("QUESTION");
         answerET.setText(q.getAnswer());
+
         bodyTV.setText(q.getBody());
 
         // CITATION: making ETs uneditable -->
@@ -37,5 +49,9 @@ public class ViewQuestion extends AppCompatActivity {
         if (isTeacher){
             answerET.setKeyListener(variable);
         }
+
     }
+
+
+
 }

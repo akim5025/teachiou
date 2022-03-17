@@ -21,6 +21,11 @@ public class dashboard extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+        bottomNav.setBackground(null);
+        bottomNav.getMenu().getItem(2).setEnabled(false);
+
+        //https://www.youtube.com/watch?v=x6-_va1R788
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener  navListener =
@@ -43,8 +48,8 @@ public class dashboard extends AppCompatActivity {
                             selectedFragment = new FragmentSettings();
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                     //       selectedFragment).commit();
 
                     return true;
                 }
