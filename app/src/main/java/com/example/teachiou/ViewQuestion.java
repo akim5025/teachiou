@@ -20,7 +20,6 @@ public class ViewQuestion extends AppCompatActivity {
     private EditText answerET;
     private TextView bodyTV;
     private Question q;
-    private EditText answerET;
     private boolean isTeacher;
 
     @Override
