@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class dashboard extends AppCompatActivity {
@@ -24,6 +26,8 @@ public class dashboard extends AppCompatActivity {
         bottomNav.setBackground(null);
         bottomNav.getMenu().getItem(2).setEnabled(false);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
+
         //https://www.youtube.com/watch?v=x6-_va1R788
 
     }
@@ -36,20 +40,22 @@ public class dashboard extends AppCompatActivity {
 
                     switch(item.getItemId()){
                         case R.id.nav_home:
+                            Log.i("+++++++++++++++", "home");
                             selectedFragment = new FragmentHome();
                             break;
                         case R.id.nav_notification:
+                            Log.i("+++++++++++++++", "not");
                             selectedFragment = new FragmentNotifications();
                             break;
                         case R.id.nav_profile:
+                            Log.i("+++++++++++++++", "prof");
                             selectedFragment = new FragmentProfile();
                             break;
                         case R.id.nav_settings:
                             selectedFragment = new FragmentSettings();
                             break;
                     }
-                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                     //       selectedFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
                     return true;
                 }
