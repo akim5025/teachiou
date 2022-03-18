@@ -42,10 +42,7 @@
                 android:layout_marginTop="@dimen/smallPadding"
                 android:text="Calc BC"
                 android:textSize="@dimen/smallFontSize" />
-
-
         </LinearLayout>
-
     </ScrollView>
 
     <Button
