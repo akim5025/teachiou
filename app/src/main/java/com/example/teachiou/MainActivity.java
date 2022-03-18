@@ -24,10 +24,18 @@ public class MainActivity extends AppCompatActivity {
     TextView authStatusTV; // might not be used. Textview that holds whether or not user is already signed in
     private FirebaseAuth mAuth;
 
+    // create public static FirebaseHelper variable
+    // this will allow ALL the other activities to access
+    // this variable by referring to it as MainActivity.firebaseHelper
+    public static FirebaseHelper firebaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // instantiate FirebaseHelper var
+        firebaseHelper = new FirebaseHelper();
 
         emailET = findViewById(R.id.editTextEmail);
         passwordET = findViewById(R.id.editTextPassword);

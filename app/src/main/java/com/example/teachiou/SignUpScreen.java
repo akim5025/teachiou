@@ -1,5 +1,7 @@
 package com.example.teachiou;
 
+import static com.example.teachiou.MainActivity.firebaseHelper;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpScreen extends AppCompatActivity {
 
-    EditText emailET, passwordET;
+    EditText emailET, passwordET, nameET;
+    String name;
     private FirebaseAuth mAuth;
 
     @Override
@@ -27,6 +30,7 @@ public class SignUpScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
 
+        nameET = findViewById(R.id.editTextName);
         emailET = findViewById(R.id.editTextEmail);
         passwordET = findViewById(R.id.editTextPassword);
         mAuth = FirebaseAuth.getInstance();
@@ -34,6 +38,7 @@ public class SignUpScreen extends AppCompatActivity {
 
     public void signUp(String email, String password) {
         Intent intent = new Intent(this, roleSelection.class);
+        name = nameET.getText().toString();
         // If the email and password passed in are not null, then try to create a User
         if (email != null && password != null) {
             mAuth.createUserWithEmailAndPassword(email, password)
@@ -46,6 +51,12 @@ public class SignUpScreen extends AppCompatActivity {
                                 Toast.makeText(SignUpScreen.this, "Authentication complete.",
                                         Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
+
+                                // add a document to fire store with the users name and their unique UID from auth account
+                                firebaseHelper.addUserToFirestore(name, user.getUid());
+
+                                // THis is needed to help with asynchronous method calls in firebase
+                                firebaseHelper.attachReadDataToUser();
 
                                 startActivity(intent);
 
