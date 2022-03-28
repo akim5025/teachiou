@@ -50,10 +50,10 @@ public class SignUpScreen extends AppCompatActivity {
                                 Log.i("Denna", "createUserWithEmail:success");
                                 Toast.makeText(SignUpScreen.this, "Authentication complete.",
                                         Toast.LENGTH_SHORT).show();
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseUser user = firebaseHelper.getmAuth().getCurrentUser();
 
                                 // add a document to fire store with the users name and their unique UID from auth account
-                                firebaseHelper.addUserToFirestore(name, user.getUid());
+                                firebaseHelper.addUserToFirestore(user.getUid());
 
                                 // THis is needed to help with asynchronous method calls in firebase
                                 firebaseHelper.attachReadDataToUser();

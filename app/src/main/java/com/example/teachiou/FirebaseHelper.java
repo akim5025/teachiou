@@ -52,6 +52,7 @@ public class FirebaseHelper {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private ArrayList<classListItem> myItems = new ArrayList<>();
 
     public FirebaseHelper() {
         mAuth = FirebaseAuth.getInstance();
@@ -71,7 +72,7 @@ public class FirebaseHelper {
             //more here
             readData(new FirestoreCallback() {
                 @Override
-                public void onCallback(ArrayList<WishListItem> myList) {
+                public void onCallback(ArrayList<classListItem> myList) {
                     Log.i(TAG, "Inside attachReadDataToUser, onCallBack" + myList.toString());
                 }
             });
@@ -107,22 +108,22 @@ public class FirebaseHelper {
 
     }
 
-    public void addData(WishListItem wish) {
+    public void addData(classListItem wish) {
         //add wishlist item to the database
         //this method will be overloaded nd the other method will incorporate the interface to
         //handle asynch calls for reading data to keep myItems AL up to date.
         addData(wish, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<WishListItem> myList) {
+            public void onCallback(ArrayList<classListItem> myList) {
                 Log.i(TAG, "Indide addData, finished:  " + myList.toString());
             }
         });
     }
 
     //this method will do the actual work of adding the wishlist item to the database.
-    private void addData(WishListItem wish, FirestoreCallback firestoreCallback) {
+    private void addData(classListItem classItem, FirestoreCallback firestoreCallback) {
         db.collection("users").document(uid).collection("myWishList")
-                .add(wish)
+                .add(classItem)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -137,7 +138,7 @@ public class FirebaseHelper {
                         db.collection("users").document(uid).collection("myWishList")
                                 .document(documentReference.getId())
                                 .update("docID", documentReference.getId());
-                        Log.i(TAG, "just added " + wish.getItemName());
+                        Log.i(TAG, "just added " + classItem.getClassName());
                         readData(firestoreCallback);
 
                         // If we want the arrayList to be updated NOW, we call
@@ -155,23 +156,23 @@ public class FirebaseHelper {
                 });
     }
 
-    public ArrayList<WishListItem> getWishListItems() {
+    public ArrayList<classListItem> getWishListItems() {
         return myItems;
     }
 
 
-    public void editData(WishListItem w) {
+    public void editData(classListItem w) {
         // edit WishListItem w to the database
         // this method is overloaded and incorporates the interface to handle the asynch calls
         editData(w, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<WishListItem> myList) {
+            public void onCallback(ArrayList<classListItem> myList) {
                 Log.i(TAG, "Inside editData, onCallback " + myList.toString());
             }
         });
     }
 
-    private void editData(WishListItem w, FirestoreCallback firestoreCallback) {
+    private void editData(classListItem w, FirestoreCallback firestoreCallback) {
         String docId = w.getDocID();
         db.collection("users").document(uid).collection("myWishList")
                 .document(docId)
@@ -191,19 +192,19 @@ public class FirebaseHelper {
                 });
     }
 
-    public void deleteData(WishListItem w) {
+    public void deleteData(classListItem w) {
         // delete item w from database
         // this method is overloaded and incorporates the interface to handle the asynch calls
         deleteData(w, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<WishListItem> myList) {
+            public void onCallback(ArrayList<classListItem> myList) {
                 Log.i(TAG, "Inside deleteData, onCallBack" + myList.toString());
             }
         });
 
     }
 
-    public void deleteData(WishListItem w, FirestoreCallback firestoreCallback) {
+    public void deleteData(classListItem w, FirestoreCallback firestoreCallback) {
         // delete item w from database
         String docId = w.getDocID();
         db.collection("users").document(uid).collection("myWishList")
@@ -212,7 +213,7 @@ public class FirebaseHelper {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.i(TAG, w.getItemName() + " successfully deleted");
+                        Log.i(TAG, w.getClassName() + " successfully deleted");
                         readData(firestoreCallback);
                     }
                 })
@@ -250,7 +251,7 @@ public class FirebaseHelper {
 
                                 //converts firestore item into java object
 
-                                WishListItem w = doc.toObject(WishListItem.class);
+                                classListItem w = doc.toObject(classListItem.class);
                                 myItems.add(w);
                             }
                             //still inside the oncomplete, i want to call my onCallback method so that the interface
@@ -264,7 +265,7 @@ public class FirebaseHelper {
 
     //https://stackoverflow.com/questions/48499310/how-to-return-a-documentsnapshot-as-a-result-of-a-method/48500679#48500679
     public interface FirestoreCallback {
-        void onCallback(ArrayList<WishListItem> myList);
+        void onCallback(ArrayList<classListItem> myList);
 
     }
 }
