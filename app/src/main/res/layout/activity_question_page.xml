@@ -60,6 +60,7 @@
         android:layout_height="38dp"
         android:background="@drawable/round"
         android:ems="10"
+        android:fontFamily="sans-serif-condensed"
         android:inputType="textPersonName"
         android:text="  Find Question"
         app:layout_constraintBottom_toBottomOf="parent"
