@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void signOut(String email, String password) {
+    public void signOut(View v) {
         mAuth.signOut();
         authStatusTV.setText("Signed out");
     }
