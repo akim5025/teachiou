@@ -49,9 +49,9 @@
         android:id="@+id/classSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:background="@drawable/round"
         android:onClick="onClassSelected"
-        />
+        android:text="Submit" />
 
 
     <!-- https://developer.android.com/guide/topics/ui/controls/checkbox -->
