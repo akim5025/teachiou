@@ -14,6 +14,7 @@ public class roleSelection extends AppCompatActivity {
 
     public static final String EXTRA_ROLE = "com.example.teachiou.ROLE";
     public String role;
+    public static FirebaseHelper firebaseHelper = new FirebaseHelper();
 
 
     @Override
@@ -35,14 +36,14 @@ public class roleSelection extends AppCompatActivity {
                 if (checked){
                     studentRad.setChecked(false);
                     role = "teacher";
-                    db.collection("users").document(uid).collection("role").set(role);
+                    firebaseHelper.addRole(role, user.getUid());
                 }
                 break;
             case R.id.student:
                 if (checked){
                     teacherRad.setChecked(false);
                     role = "student";
-                    db.collection("users").document(uid).collection("role").set(role);
+                    firebaseHelper.addRole(role, user.getUid());
                 }
                 break;
         }

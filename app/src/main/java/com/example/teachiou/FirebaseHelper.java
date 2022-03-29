@@ -156,6 +156,41 @@ public class FirebaseHelper {
                 });
     }
 
+    public void addRole(roleSelection role, FirestoreCallback firestoreCallback) {
+        db.collection("users").document(uid).collection("role")
+                .add(role)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        // we are going to update the document we just added by
+                        // editing the docID instance variable so that it knows what
+                        // the value is for its docID in firestore.
+
+                        // in the onSuccess method, the documentReference parameter
+                        // contains a reference to the newly created document. We
+                        // can use this to extract the docID from firestore.
+
+                        db.collection("users").document(uid).collection("role")
+                                .document(documentReference.getId())
+                                .update("docID", documentReference.getId());
+                        Log.i(TAG, "just added " + role);
+                        readData(firestoreCallback);
+
+                        // If we want the arrayList to be updated NOW, we call
+                        // readData.  If we don't care about continuing our work, then
+                        // you don't need to call readData
+
+                        // later on, experiment with commenting this line out, see how it is different.
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Error adding element", e);
+                    }
+                });
+    }
+
     public ArrayList<classListItem> getWishListItems() {
         return myItems;
     }
