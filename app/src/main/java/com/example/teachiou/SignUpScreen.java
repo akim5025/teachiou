@@ -55,8 +55,8 @@ public class SignUpScreen extends AppCompatActivity {
                                 // add a document to fire store with the users name and their unique UID from auth account
                                 firebaseHelper.addUserToFirestore(user.getUid());
 
-                                // THis is needed to help with asynchronous method calls in firebase
-                                firebaseHelper.attachReadDataToUser();
+                                // This is needed to help with asynchronous method calls in firebase
+                                //firebaseHelper.attachReadDataToUser();
 
                                 startActivity(intent);
 

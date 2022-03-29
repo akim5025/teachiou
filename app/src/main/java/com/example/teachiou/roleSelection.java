@@ -35,14 +35,12 @@ public class roleSelection extends AppCompatActivity {
                 if (checked){
                     studentRad.setChecked(false);
                     role = "teacher";
-                    db.collection("users").document(uid).collection("role").set(role);
                 }
                 break;
             case R.id.student:
                 if (checked){
                     teacherRad.setChecked(false);
                     role = "student";
-                    db.collection("users").document(uid).collection("role").set(role);
                 }
                 break;
         }
