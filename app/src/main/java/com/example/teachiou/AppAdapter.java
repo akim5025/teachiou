@@ -27,7 +27,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
 
         // this view is passed to the view holder and getItemCount item is used to
         // create the uis for the given array
-        View view =layoutInflater.inflate(R.layout.list_class,parent,false);
+        View view = layoutInflater.inflate(R.layout.list_class,parent,false);
         return new AppViewHolder(view);
     }
 
@@ -40,7 +40,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
 
     @Override
     public int getItemCount() {
-        return 0;
+        return classData.length;
     }
 
     public class AppViewHolder extends RecyclerView.ViewHolder{

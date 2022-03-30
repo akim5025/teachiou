@@ -74,7 +74,7 @@ public class    FragmentHome extends Fragment {
 
         // this inflates the fragment_mains to the view group
         // the next line uses the listItemView to get the recycler view
-        listItemsView = inflater.inflate(R. layout.fragment_home,container,false);
+        listItemsView = inflater.inflate(R.layout.fragment_home,container,false);
         recyclerView = listItemsView.findViewById(R.id.classesList);
 
         layoutManager = new LinearLayoutManager(getContext());
