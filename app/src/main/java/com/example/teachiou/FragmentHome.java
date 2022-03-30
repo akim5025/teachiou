@@ -3,10 +3,13 @@ package com.example.teachiou;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +17,16 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class    FragmentHome extends Fragment {
+
+
+    // https://www.youtube.com/watch?v=5A_TqyzjByk
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    // Later on, Get users classes from firestore instead of using this static list
+    private String[] classes = {"Math", "English", "Java"};
+    private View listItemsView;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +71,21 @@ public class    FragmentHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // this inflates the fragment_mains to the view group
+        // the next line uses the listItemView to get the recycler view
+        listItemsView = inflater.inflate(R. layout.fragment_home,container,false);
+        recyclerView = listItemsView.findViewById(R.id.classesList);
+
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        // this actually loads the list items to the recycler view
+        adapter = new AppAdapter(classes);
+        recyclerView.setAdapter(adapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return listItemsView;
+        //return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }
