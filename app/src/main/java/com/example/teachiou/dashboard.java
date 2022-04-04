@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -60,4 +62,9 @@ public class dashboard extends AppCompatActivity {
                     return true;
                 }
             };
+
+    public void toQuestion(View v) {
+        Intent intent = new Intent(this, AskQuestion.class);
+        startActivityForResult(intent, 1);
+    }
 }

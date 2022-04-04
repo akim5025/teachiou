@@ -45,7 +45,7 @@ public class ActivityQuestionPage extends AppCompatActivity {
 
     public void newQuestion(View v){
         Intent intent = new Intent(ActivityQuestionPage.this, AskQuestion.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
 
