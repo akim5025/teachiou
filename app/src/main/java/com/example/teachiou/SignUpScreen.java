@@ -18,12 +18,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpScreen extends AppCompatActivity {
 
     EditText emailET, passwordET, nameET;
-    String name;
+    String name, userID;
     private FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class SignUpScreen extends AppCompatActivity {
         emailET = findViewById(R.id.editTextEmail);
         passwordET = findViewById(R.id.editTextPassword);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
     }
 
     public void signUp(String email, String password) {
@@ -54,6 +61,15 @@ public class SignUpScreen extends AppCompatActivity {
 
                                 // add a document to fire store with the users name and their unique UID from auth account
                                 firebaseHelper.addUserToFirestore(user.getUid());
+
+                                Map<String, Object> dataStart = new HashMap<String, Object>();
+                                dataStart.put("NAME", "");
+                                dataStart.put("EMAIL", "");
+                                dataStart.put("PASSWORD", "");
+                                dataStart.put("ROLE", true);
+                                dataStart.put("CLASSES", "");
+
+                                db.collection("users").document(userID).set(dataStart);
 
                                 // This is needed to help with asynchronous method calls in firebase
                                 //firebaseHelper.attachReadDataToUser();
