@@ -184,7 +184,7 @@ public class FirebaseHelper {
     }
 
 
-    public void editData(String w, String field) {
+    public void editData(Object w, String field) {
         // edit WishListItem w to the database
         // this method is overloaded and incorporates the interface to handle the asynch calls
         editData(w, field, new FirestoreCallback() {
@@ -195,7 +195,7 @@ public class FirebaseHelper {
         });
     }
 
-    private void editData(String w, String field, FirestoreCallback firestoreCallback) {
+    private void editData(Object w, String field, FirestoreCallback firestoreCallback) {
         db.collection("users").document(uid)
                 .update(field, w)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
