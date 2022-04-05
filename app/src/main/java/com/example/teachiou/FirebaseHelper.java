@@ -161,9 +161,9 @@ public class FirebaseHelper {
     public void addRole(String role, String uid) {
         DocumentReference userRef = db.collection("user").document(uid);
         Map<String, Object> user = new HashMap<>();
-        user.put("roleStatus", role);
+        user.put("ROLE", role);
         userRef
-                .update(user)
+                .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -184,10 +184,10 @@ public class FirebaseHelper {
     }
 
 
-    public void editData(classListItem w) {
+    public void editData(String w, String field) {
         // edit WishListItem w to the database
         // this method is overloaded and incorporates the interface to handle the asynch calls
-        editData(w, new FirestoreCallback() {
+        editData(w, field, new FirestoreCallback() {
             @Override
             public void onCallback(ArrayList<classListItem> myList) {
                 Log.i(TAG, "Inside editData, onCallback " + myList.toString());
@@ -195,11 +195,9 @@ public class FirebaseHelper {
         });
     }
 
-    private void editData(classListItem w, FirestoreCallback firestoreCallback) {
-        String docId = w.getDocID();
-        db.collection("users").document(uid).collection("myWishList")
-                .document(docId)
-                .set(w)
+    private void editData(String w, String field, FirestoreCallback firestoreCallback) {
+        db.collection("users").document(uid)
+                .update(field, w)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

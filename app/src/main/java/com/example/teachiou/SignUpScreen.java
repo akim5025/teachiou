@@ -40,7 +40,6 @@ public class SignUpScreen extends AppCompatActivity {
         passwordET = findViewById(R.id.editTextPassword);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        userID = mAuth.getCurrentUser().getUid();
     }
 
     public void signUp(String email, String password) {
@@ -58,19 +57,20 @@ public class SignUpScreen extends AppCompatActivity {
                                 Toast.makeText(SignUpScreen.this, "Authentication complete.",
                                         Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = firebaseHelper.getmAuth().getCurrentUser();
-
+                                userID = user.getUid();
                                 // add a document to fire store with the users name and their unique UID from auth account
                                 firebaseHelper.addUserToFirestore(user.getUid());
 
                                 Map<String, Object> dataStart = new HashMap<String, Object>();
-                                dataStart.put("NAME", "");
-                                dataStart.put("EMAIL", "");
-                                dataStart.put("PASSWORD", "");
-                                dataStart.put("ROLE", true);
+                                dataStart.put("NAME", name);
+                                dataStart.put("EMAIL", email);
+                                dataStart.put("PASSWORD", password);
+                                dataStart.put("ROLE", "");
                                 dataStart.put("CLASSES", "");
 
                                 db.collection("users").document(userID).set(dataStart);
 
+                                Log.i("/////////////////// CONSOLE", user.getUid());
                                 // This is needed to help with asynchronous method calls in firebase
                                 //firebaseHelper.attachReadDataToUser();
 

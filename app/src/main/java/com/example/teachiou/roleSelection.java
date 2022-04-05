@@ -36,8 +36,8 @@ public class roleSelection extends AppCompatActivity {
                 if (checked){
                     studentRad.setChecked(false);
                     role = "teacher";
-
-                    firebaseHelper.addRole(role, firebaseHelper.getmAuth().getUid());
+                    Log.i("Denna",  "+++++++++++++++++++++++++");
+                    firebaseHelper.editData(role, "ROLE");
 
                 }
                 break;
@@ -45,8 +45,8 @@ public class roleSelection extends AppCompatActivity {
                 if (checked){
                     teacherRad.setChecked(false);
                     role = "student";
-
-                    firebaseHelper.addRole(role, firebaseHelper.getmAuth().getUid());
+                    Log.i("Denna",  "++++++++++++++++++++++++");
+                    firebaseHelper.editData(role, "ROLE");
                     
                 }
                 break;
