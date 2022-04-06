@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.collect.ArrayListMultimap;
 
 import java.util.ArrayList;
 
@@ -44,8 +45,10 @@ public class ClassSelection extends AppCompatActivity {
             }
 
         }
-    }
 
+        Intent intent = new Intent(this, dashboard.class);
+        startActivity(intent);
+    }
 
 
 }
