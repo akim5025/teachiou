@@ -95,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
                 signIn(email, password);
                 break;
         }
+
+        Intent intent = new Intent(this, dashboard.class);
+        startActivity(intent);
+
     }
 
     public void signUpScreen(View v) {
