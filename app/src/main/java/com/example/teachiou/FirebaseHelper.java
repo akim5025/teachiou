@@ -183,6 +183,34 @@ public class FirebaseHelper {
         return myItems;
     }
 
+    public void addClasses(Object w, String field) {
+        // edit WishListItem w to the database
+        // this method is overloaded and incorporates the interface to handle the asynch calls
+        editData(w, field, new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<classListItem> myList) {
+                Log.i(TAG, "Inside editData, onCallback " + myList.toString());
+            }
+        });
+    }
+
+    private void addClasses(Object w, String field, FirestoreCallback firestoreCallback) {
+        db.collection("users").document(uid)
+                .update(field, w)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.i(TAG, "Success updating document");
+                        readData(firestoreCallback);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i(TAG, "Error updating document", e);
+                    }
+                });
+    }
 
     public void editData(Object w, String field) {
         // edit WishListItem w to the database

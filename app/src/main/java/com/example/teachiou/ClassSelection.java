@@ -11,11 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClassSelection extends AppCompatActivity {
 
     private int totalClasses = 2;
-    ArrayList usersClasses = new ArrayList();
+    ArrayList<CharSequence> usersClasses = new ArrayList();
+    Map<String, String> classHash = new HashMap<String, String>();
+    public static FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +46,12 @@ public class ClassSelection extends AppCompatActivity {
                     errorSnack.show();
                 }
             }
-
         }
+        for (int i = 0; i < usersClasses.size(); i++) {
+            classHash.put(Integer.toString(i), usersClasses.get(i).toString());
+        }
+        //CREATE FUNCTION TO CREATE COLLECTION AND ADD HASHMAP IN IT TO STORE CLASS VALUES
+        firebaseHelper.editData(classHash, "CLASSES");
     }
 
 
