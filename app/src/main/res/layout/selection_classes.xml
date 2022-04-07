@@ -15,16 +15,6 @@
         android:text="Which classes are you in?"
         android:textSize="@dimen/defaultFontSize" />
 
-    <CheckBox
-        android:id="@+id/checkbox_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/smallPadding"
-        android:layout_marginTop="@dimen/smallPadding"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Mobile App Development"
-        android:textSize="@dimen/smallFontSize" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="430dp">
@@ -36,6 +26,16 @@
             android:orientation="vertical">
 
             <CheckBox
+                android:id="@+id/checkbox_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Mobile App Development"
+                android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
                 android:id="@+id/checkbox_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,6 +44,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:text="Calc BC"
                 android:textSize="@dimen/smallFontSize" />
+
         </LinearLayout>
     </ScrollView>
 
