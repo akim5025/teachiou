@@ -2,6 +2,7 @@ package com.example.teachiou;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -12,11 +13,15 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.common.collect.ArrayListMultimap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClassSelection extends AppCompatActivity {
 
     private int totalClasses = 2;
-    ArrayList usersClasses = new ArrayList();
+    ArrayList<CharSequence> usersClasses = new ArrayList();
+    Map<String, String> classHash = new HashMap<String, String>();
+    public static FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +48,13 @@ public class ClassSelection extends AppCompatActivity {
                     errorSnack.show();
                 }
             }
-
         }
+
+        for (int i = 0; i < usersClasses.size(); i++) {
+            classHash.put(Integer.toString(i), usersClasses.get(i).toString());
+        }
+        firebaseHelper.editData(classHash, "CLASSES");
+
 
         Intent intent = new Intent(this, dashboard.class);
         startActivity(intent);

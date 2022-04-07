@@ -45,6 +45,7 @@ public class SignUpScreen extends AppCompatActivity {
     public void signUp(String email, String password) {
         Intent intent = new Intent(this, roleSelection.class);
         name = nameET.getText().toString();
+        Map<String, String> mapHolder = new HashMap<String, String>();
         // If the email and password passed in are not null, then try to create a User
         if (email != null && password != null) {
             mAuth.createUserWithEmailAndPassword(email, password)
@@ -66,7 +67,7 @@ public class SignUpScreen extends AppCompatActivity {
                                 dataStart.put("EMAIL", email);
                                 dataStart.put("PASSWORD", password);
                                 dataStart.put("ROLE", "");
-                                dataStart.put("CLASSES", "");
+                                dataStart.put("CLASSES", mapHolder);
 
                                 db.collection("users").document(userID).set(dataStart);
 

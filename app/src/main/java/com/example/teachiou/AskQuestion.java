@@ -15,6 +15,8 @@ public class AskQuestion extends AppCompatActivity {
     private boolean isAnswered;
     FirebaseHelper firebasehelper = new FirebaseHelper();
 
+    FirebaseHelper firebaseHelper = new FirebaseHelper();
+
     private EditText bodyET, titleET, imageET;
 
     @Override

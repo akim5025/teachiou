@@ -218,7 +218,6 @@ public class FirebaseHelper {
         return myItems;
     }
 
-
     public void editData(Object w, String field) {
         // edit WishListItem w to the database
         // this method is overloaded and incorporates the interface to handle the asynch calls
