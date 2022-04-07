@@ -10,13 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class    FragmentHome extends Fragment {
+public class FragmentHome extends Fragment {
 
 
     // https://www.youtube.com/watch?v=5A_TqyzjByk
@@ -88,4 +89,5 @@ public class    FragmentHome extends Fragment {
         return listItemsView;
         //return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
 }
