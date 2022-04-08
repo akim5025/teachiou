@@ -40,7 +40,7 @@ public class AskQuestion extends AppCompatActivity {
     }
 
     public void back(View v){
-        Intent intent = new Intent(AskQuestion.this, ActivityQuestionPage.class);
+        Intent intent = new Intent(AskQuestion.this, QuestionPage.class);
         startActivity(intent);
     }
 }

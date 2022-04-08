@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Teachiou">
         <activity
+            android:name=".QuestionPage"
+            android:exported="false" />
+        <activity
             android:name=".loadScreenActivity"
             android:exported="false" />
         <activity

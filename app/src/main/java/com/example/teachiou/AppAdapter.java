@@ -59,9 +59,14 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // FIX
+
                 Log.d("test123", "onClick: clicked on: " + classData);
                 Snackbar errorSnack = Snackbar.make(view, "Classes - " + classData[position], Snackbar.LENGTH_SHORT);
                 errorSnack.show();
+                Intent intent = new Intent(view.getContext(), QuestionPage.class);
+                intent.putExtra("class", className);
+                view.getContext().startActivity(intent);
                 // put info to send here
             }
         });
@@ -85,4 +90,5 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
                 parentLayout = itemView.findViewById(R.id.parent_layout);
          }
     }
+
 }

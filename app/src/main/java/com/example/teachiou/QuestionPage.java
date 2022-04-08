@@ -1,18 +1,17 @@
 package com.example.teachiou;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
-// CITATION: Code from WishList project was used as starting point
-public class ActivityQuestionPage extends AppCompatActivity {
+
+public class QuestionPage extends AppCompatActivity {
     // CITATION: Code from Wishlist project was used as starting point
     private ArrayList<Question> myList;
     private static final String TAG = "Denna";
@@ -34,7 +33,7 @@ public class ActivityQuestionPage extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(ActivityQuestionPage.this, ViewQuestion.class);
+                Intent intent = new Intent(QuestionPage.this, ViewQuestion.class);
 
                 intent.putExtra("QUESTION", myList.get(i));
                 startActivity(intent);
@@ -44,7 +43,7 @@ public class ActivityQuestionPage extends AppCompatActivity {
     }
 
     public void newQuestion(View v){
-        Intent intent = new Intent(ActivityQuestionPage.this, AskQuestion.class);
+        Intent intent = new Intent(QuestionPage.this, AskQuestion.class);
         startActivityForResult(intent, 1);
     }
 
