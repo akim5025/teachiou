@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -155,7 +156,7 @@ public class FirebaseHelper {
                     }
                 });
     }
-
+    // .set(q, SetOptions.merge()) does not overwrite data
     private void addData(Question q, String className, FirestoreCallback firestoreCallback) {
         db.collection("classes").document(className).collection("questions")
                 .add(q)
