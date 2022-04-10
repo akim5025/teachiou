@@ -25,7 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -156,41 +155,6 @@ public class FirebaseHelper {
                     }
                 });
     }
-    // .set(q, SetOptions.merge()) does not overwrite data
-    private void addData(Question q, String className, FirestoreCallback firestoreCallback) {
-        db.collection("classes").document(className).collection("questions")
-                .add(q)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        // we are going to update the document we just added by
-                        // editing the docID instance variable so that it knows what
-                        // the value is for its docID in firestore.
-
-                        // in the onSuccess method, the documentReference parameter
-                        // contains a reference to the newly created document. We
-                        // can use this to extract the docID from firestore.
-
-                        db.collection("users").document(className).collection("questions")
-                                .document(documentReference.getId())
-                                .update("docID", documentReference.getId());
-                        Log.i(TAG, "just added your question");
-                        readData(firestoreCallback);
-
-                        // If we want the arrayList to be updated NOW, we call
-                        // readData.  If we don't care about continuing our work, then
-                        // you don't need to call readData
-
-                        // later on, experiment with commenting this line out, see how it is different.
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "Error adding element", e);
-                    }
-                });
-    }
 
     //https://firebase.google.com/docs/firestore/manage-data/add-data#java_16
 // Add document
@@ -217,6 +181,35 @@ public class FirebaseHelper {
 
     public ArrayList<classListItem> getWishListItems() {
         return myItems;
+    }
+
+    public void addClasses(Object w, String field) {
+        // edit WishListItem w to the database
+        // this method is overloaded and incorporates the interface to handle the asynch calls
+        editData(w, field, new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<classListItem> myList) {
+                Log.i(TAG, "Inside editData, onCallback " + myList.toString());
+            }
+        });
+    }
+
+    private void addClasses(Object w, String field, FirestoreCallback firestoreCallback) {
+        db.collection("users").document(uid)
+                .update(field, w)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.i(TAG, "Success updating document");
+                        readData(firestoreCallback);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i(TAG, "Error updating document", e);
+                    }
+                });
     }
 
     public void editData(Object w, String field) {

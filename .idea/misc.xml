@@ -3,30 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/activity_question_page.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/fragment_home.xml" value="0.24954710144927536" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/fragment_notifications.xml" value="0.24954710144927536" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/fragment_profile.xml" value="0.24954710144927536" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/fragment_settings.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/selection_classes.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/layout/selection_role.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/kim6514/Documents/GitHub/teachiou/app/src/main/res/menu/bottom_navigation.xml" value="0.35260416666666666" />
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
-        <entry key="..\:/Users/zhou1276/Documents/GitHub/teachiou/app/src/main/res/drawable/round.xml" value="0.2985" />
-        <entry key="..\:/Users/zhou1276/Documents/GitHub/teachiou/app/src/main/res/layout/activity_question_page.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/zhou1276/Documents/GitHub/teachiou/app/src/main/res/layout/activity_view_question.xml" value="0.3482789855072464" />
->>>>>>> 94bca1f5b96bde77602b71326c6f42df5d04b40f
-=======
-        <entry key="..\:/Users/yoo5409/Documents/GitHub/teachiou/app/src/main/res/layout/activity_dashboard.xml" value="0.3009833262077811" />
-        <entry key="..\:/Users/yoo5409/Documents/GitHub/teachiou/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/yoo5409/Documents/GitHub/teachiou/app/src/main/res/layout/activity_view_question.xml" value="0.3009833262077811" />
-        <entry key="..\:/Users/yoo5409/Documents/GitHub/teachiou/app/src/main/res/layout/fragment_home.xml" value="0.14876723777684914" />
-        <entry key="..\:/Users/zhou1276/Documents/GitHub/teachiou/app/src/main/res/layout/activity_question_page.xml" value="0.36666666666666664" />
->>>>>>> Stashed changes
+        <entry key="..\:/Users/YHOME_ALX/Desktop/teachiou/app/src/main/res/drawable/round.xml" value="0.3828125" />
+        <entry key="..\:/Users/YHOME_ALX/Desktop/teachiou/app/src/main/res/layout/activity_ask_question.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/YHOME_ALX/Desktop/teachiou/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/YHOME_ALX/Desktop/teachiou/app/src/main/res/layout/list_class.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

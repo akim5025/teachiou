@@ -13,8 +13,6 @@ public class AskQuestion extends AppCompatActivity {
     private String body, title, answer, imageID;
     private int time;
     private boolean isAnswered;
-    FirebaseHelper firebasehelper = new FirebaseHelper();
-    
 
     private EditText bodyET, titleET, imageET;
 
@@ -32,7 +30,6 @@ public class AskQuestion extends AppCompatActivity {
         title = titleET.getText().toString();
 
         Question q = new Question(body, title);
-        //firebasehelper.addData()
         //insert firebaseHelper code to addData
         //MainActivity.firebaseHelper.addData(q);
         bodyET.setText("");
@@ -40,7 +37,7 @@ public class AskQuestion extends AppCompatActivity {
     }
 
     public void back(View v){
-        Intent intent = new Intent(AskQuestion.this, QuestionPage.class);
+        Intent intent = new Intent(AskQuestion.this, ActivityQuestionPage.class);
         startActivity(intent);
     }
 }

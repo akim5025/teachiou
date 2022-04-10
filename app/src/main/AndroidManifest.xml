@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Teachiou">
         <activity
-            android:name=".QuestionPage"
-            android:exported="false" />
-        <activity
             android:name=".loadScreenActivity"
             android:exported="false" />
         <activity
@@ -27,6 +24,7 @@
         <activity android:name=".roleSelection" />
         <activity android:name=".ClassSelection" />
         <activity android:name=".SignUpScreen" />
+        <activity android:name=".ActivityQuestionPage"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

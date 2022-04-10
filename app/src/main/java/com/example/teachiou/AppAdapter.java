@@ -14,6 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -22,16 +27,22 @@ import com.google.android.material.snackbar.Snackbar;
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
 
     String[] classData = {};
-
-    private LayoutInflater layoutInflater;
-
-    AppAdapter(String[] _data){
-        classData = _data;
-    }
+    LinearLayout parentLayout;
 
     private Context mContext;
+    FragmentHome thisFrag;
+    private LayoutInflater layoutInflater;
+
+    public AppAdapter(FragmentHome fragmentHome, String[] _data){
+
+        classData = _data;
+        thisFrag = fragmentHome;
+    }
+
+
 
     // https://github.com/mitchtabian/Recyclerview
+
 
 
 
@@ -48,7 +59,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
 
 
 
-
     // https://dev.to/theplebdev/adding-onclicklistener-to-recyclerview-in-android-3amb
     @Override
     public void onBindViewHolder(@NonNull AppViewHolder holder, int position) {
@@ -59,18 +69,23 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // FIX
+                // Log.d("test123", "onClick: clicked on: " + classData);
 
-                Log.d("test123", "onClick: clicked on: " + classData);
-                Snackbar errorSnack = Snackbar.make(view, "Classes - " + classData[position], Snackbar.LENGTH_SHORT);
-                errorSnack.show();
-                Intent intent = new Intent(view.getContext(), QuestionPage.class);
-                intent.putExtra("class", className);
-                view.getContext().startActivity(intent);
+                // Snackbar errorSnack = Snackbar.make(view, "Classes - " + classData[position], Snackbar.LENGTH_SHORT);
+                // errorSnack.show();
+
+                AppCompatActivity activity = (AppCompatActivity)view.getContext();
+
+                Intent intent = new Intent(activity, ActivityQuestionPage.class);
+                intent.putExtra("className", classData[position]);
+                activity.startActivity(intent);
+
                 // put info to send here
             }
         });
     }
+
+
 
 
     @Override
@@ -90,5 +105,4 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
                 parentLayout = itemView.findViewById(R.id.parent_layout);
          }
     }
-
 }

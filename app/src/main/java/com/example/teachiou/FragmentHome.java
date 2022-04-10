@@ -1,8 +1,12 @@
 package com.example.teachiou;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,9 +28,11 @@ public class FragmentHome extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+
     // Later on, Get users classes from firestore instead of using this static list
     private String[] classes = {"Math", "English", "Java"};
     private View listItemsView;
+    public String choseClass = "";
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +43,9 @@ public class FragmentHome extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+
 
     public FragmentHome() {
         // Required empty public constructor
@@ -69,6 +78,8 @@ public class FragmentHome extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,7 +93,7 @@ public class FragmentHome extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // this actually loads the list items to the recycler view
-        adapter = new AppAdapter(classes);
+        adapter = new AppAdapter(this, classes);
         recyclerView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
