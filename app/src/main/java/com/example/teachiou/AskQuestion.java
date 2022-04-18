@@ -31,7 +31,8 @@ public class AskQuestion extends AppCompatActivity {
 
         Question q = new Question(body, title);
         //insert firebaseHelper code to addData
-        //MainActivity.firebaseHelper.addData(q);
+        //MainActivity.firebaseHelper.addQuestion(q);
+        //look at add classes implementation
         bodyET.setText("");
         titleET.setText("");
     }
