@@ -2,37 +2,44 @@ package com.example.teachiou;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.os.Handler;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.airbnb.lottie.LottieAnimationView;
 
 public class loadScreenActivity extends AppCompatActivity {
 
-    private boolean switchOn= false;
+    private static int SPLASH_SCREEN = 5000;
+    Animation topAnim, botAnim;
 
     LottieAnimationView lottieLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_load_screen);
 
-        lottieLoad = findViewById(R.id.lottieLoad);
+        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        botAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
-        lottieLoad.setOnClickListener(new View.OnClickListener() {
+        lottieLoad = findViewById(R.id.lottiePlus);
+
+        lottieLoad.setMinAndMaxProgress(0.0f, 0.5f);
+        lottieLoad.setAnimation(botAnim);
+        lottieLoad.playAnimation();
+
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                if(switchOn){
-                    lottieLoad.setMinAndMaxProgress(0.5f, 1.0f);
-                    lottieLoad.playAnimation();
-                    switchOn = false;
-                }else{
-                    lottieLoad.setMinAndMaxProgress(0.0f, 0.5f);
-                    lottieLoad.playAnimation();
-                    switchOn = true;
-                }
+            public void run() {
+                Intent intent = new Intent(loadScreenActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
-        });
+        }, SPLASH_SCREEN);
     }
 }

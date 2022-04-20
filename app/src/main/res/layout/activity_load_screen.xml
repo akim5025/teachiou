@@ -7,7 +7,7 @@
     tools:context=".loadScreenActivity">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieLoad"
+        android:id="@+id/lottiePlus"
         android:layout_width="194dp"
         android:layout_height="229dp"
         app:layout_constraintBottom_toBottomOf="parent"
