@@ -2,6 +2,7 @@ package com.example.teachiou;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -42,6 +43,9 @@ public class ClassSelection extends AppCompatActivity {
                 CheckBox box = (CheckBox) child;
                 if(box.isChecked()) {
                     usersClasses.add(box.getText());
+
+                    Log.i("ANDYKIMMMMM", "Classes - " + usersClasses.size());
+
 
                     Snackbar errorSnack = Snackbar.make(v, "Classes - " + usersClasses.size(), Snackbar.LENGTH_SHORT);
                     errorSnack.show();
