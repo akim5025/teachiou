@@ -120,6 +120,18 @@ public class FirebaseHelper {
         });
     }
 
+    public void addQuestion(Question q) {
+        //add wishlist item to the database
+        //this method will be overloaded nd the other method will incorporate the interface to
+        //handle asynch calls for reading data to keep myItems AL up to date.
+        addQuestion(q, new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<classListItem> myList) {
+                Log.i(TAG, "Indide addData, finished:  " + myList.toString());
+            }
+        });
+    }
+
     //this method will do the actual work of adding the wishlist item to the database.
     private void addData(classListItem classItem, FirestoreCallback firestoreCallback) {
         db.collection("users").document(uid).collection("myWishList")

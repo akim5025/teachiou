@@ -10,6 +10,7 @@ import android.widget.EditText;
 // CITATION: Code from WishList project was used as starting point
 public class AskQuestion extends AppCompatActivity {
 
+    public static FirebaseHelper firebaseHelper = new FirebaseHelper();
     private String body, title, answer, imageID;
     private int time;
     private boolean isAnswered;
@@ -31,8 +32,7 @@ public class AskQuestion extends AppCompatActivity {
 
         Question q = new Question(body, title);
         //insert firebaseHelper code to addData
-        //MainActivity.firebaseHelper.addQuestion(q);
-        //look at add classes implementation
+        firebaseHelper.addQuestion(q);
         bodyET.setText("");
         titleET.setText("");
     }
