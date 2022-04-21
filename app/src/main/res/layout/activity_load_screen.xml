@@ -10,6 +10,7 @@
         android:id="@+id/lottiePlus"
         android:layout_width="194dp"
         android:layout_height="229dp"
+        app:lottie_repeatCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

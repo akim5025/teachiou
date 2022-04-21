@@ -29,7 +29,6 @@ public class loadScreenActivity extends AppCompatActivity {
 
         lottieLoad = findViewById(R.id.lottiePlus);
 
-        lottieLoad.setMinAndMaxProgress(0.0f, 0.5f);
         lottieLoad.setAnimation(botAnim);
         lottieLoad.playAnimation();
 
