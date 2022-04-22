@@ -1,38 +1,19 @@
 package com.example.teachiou;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
-import android.content.Intent;
-import android.nfc.Tag;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
 /**
  * The purpose of this class is to hold ALL the code to communicate with Firebase.  This class
@@ -52,7 +33,7 @@ public class FirebaseHelper {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private ArrayList<classListItem> myItems = new ArrayList<>();
+    private ArrayList<String> myClasses = new ArrayList<>();
 
     public FirebaseHelper() {
         mAuth = FirebaseAuth.getInstance();
@@ -72,8 +53,7 @@ public class FirebaseHelper {
             //more here
             readData(new FirestoreCallback() {
                 @Override
-                public void onCallback(ArrayList<classListItem> myList) {
-                    Log.i(TAG, "Inside attachReadDataToUser, onCallBack" + myList.toString());
+                public void onCallback(ArrayList<String> myClasses) {
                 }
             });
         }
@@ -114,7 +94,7 @@ public class FirebaseHelper {
         //handle asynch calls for reading data to keep myItems AL up to date.
         addData(wish, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<classListItem> myList) {
+            public void onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Indide addData, finished:  " + myList.toString());
             }
         });
@@ -126,7 +106,7 @@ public class FirebaseHelper {
         //handle asynch calls for reading data to keep myItems AL up to date.
         addQuestion(q, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<classListItem> myList) {
+            public void onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Indide addData, finished:  " + myList.toString());
             }
         });
@@ -229,8 +209,8 @@ public class FirebaseHelper {
     }
 
 
-    public ArrayList<classListItem> getWishListItems() {
-        return myItems;
+    public ArrayList<String> getClassItems() {
+        return myClasses;
     }
 
     public void addClasses(Object w, String field) {
@@ -238,7 +218,7 @@ public class FirebaseHelper {
         // this method is overloaded and incorporates the interface to handle the asynch calls
         editData(w, field, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<classListItem> myList) {
+            public void onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Inside editData, onCallback " + myList.toString());
             }
         });
@@ -267,7 +247,7 @@ public class FirebaseHelper {
         // this method is overloaded and incorporates the interface to handle the asynch calls
         editData(w, field, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<classListItem> myList) {
+            public void onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Inside editData, onCallback " + myList.toString());
             }
         });
@@ -296,7 +276,7 @@ public class FirebaseHelper {
         // this method is overloaded and incorporates the interface to handle the asynch calls
         deleteData(w, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<classListItem> myList) {
+            public void onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Inside deleteData, onCallBack" + myList.toString());
             }
         });
@@ -336,27 +316,23 @@ public class FirebaseHelper {
      */
 
     private void readData(FirestoreCallback firestoreCallback) {
-        myItems.clear();     //clears out the array list so that we can put in new values
-        db.collection("users").document(uid).collection("myWishList").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        myClasses.clear();     //clears out the array list so that we can put in new values
+        db.collection("users").document(uid).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
-                            // loop through all elements in the snapshot and convert them into wishList items
-                            // and then add them to my arraylist
-                            for (DocumentSnapshot doc: task.getResult()) {
-                                // processing every resulting document from the query we made.
-                                // this is a snapshot of the data at this moment in time, when we requested for the data.
-
-                                //converts firestore item into java object
-
-                                classListItem w = doc.toObject(classListItem.class);
-                                myItems.add(w);
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            Map<String, String> map = (HashMap) documentSnapshot.get("CLASSES");
+                            /**
+                            for (Map.Entry mapElement : map.entrySet()) {
+                                String key = (String) mapElement.getKey();
+                                String value = (String) mapElement.getValue();
+                                myClasses.add(value);
                             }
-                            //still inside the oncomplete, i want to call my onCallback method so that the interface
-                            //can do its joba nd let whoever is wating know that the async method is done.
-                            Log.i(TAG, "Success reading data: " + myItems.toString());
-                            firestoreCallback.onCallback(myItems);
+                             **/
+
+                            myClasses.add("yayayayayaya");
+
                         }
                     }
                 });
@@ -364,7 +340,7 @@ public class FirebaseHelper {
 
     //https://stackoverflow.com/questions/48499310/how-to-return-a-documentsnapshot-as-a-result-of-a-method/48500679#48500679
     public interface FirestoreCallback {
-        void onCallback(ArrayList<classListItem> myList);
+        void onCallback(ArrayList<String> myClasses);
 
     }
 }

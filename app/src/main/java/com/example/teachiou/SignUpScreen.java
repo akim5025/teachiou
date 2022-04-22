@@ -73,7 +73,7 @@ public class SignUpScreen extends AppCompatActivity {
 
                                 Log.i("/////////////////// CONSOLE", user.getUid());
                                 // This is needed to help with asynchronous method calls in firebase
-                                //firebaseHelper.attachReadDataToUser();
+                                firebaseHelper.attachReadDataToUser();
 
                                 startActivity(intent);
 

@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
 
+                            firebaseHelper.attachReadDataToUser();
+
+
                             // startActivity(intent);  SEND TO HOME PAGE
 
                         } else {

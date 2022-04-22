@@ -1,20 +1,24 @@
 package com.example.teachiou;
 
-import android.app.Activity;
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.HashMap;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +37,7 @@ public class FragmentHome extends Fragment {
     private String[] classes = {"Math", "English", "Java"};
     private View listItemsView;
     public String choseClass = "";
-
+    FirebaseHelper firebaseHelper;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,6 +92,8 @@ public class FragmentHome extends Fragment {
         // the next line uses the listItemView to get the recycler view
         listItemsView = inflater.inflate(R.layout.fragment_home,container,false);
         recyclerView = listItemsView.findViewById(R.id.classesList);
+        firebaseHelper = new FirebaseHelper();
+
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -95,6 +101,11 @@ public class FragmentHome extends Fragment {
         // this actually loads the list items to the recycler view
         adapter = new AppAdapter(this, classes);
         recyclerView.setAdapter(adapter);
+
+
+        Log.i("8888888888888888888", firebaseHelper.getClassItems().toString());
+        //firebaseHelper.getClassItems().toString()
+
 
         // Inflate the layout for this fragment
         return listItemsView;
