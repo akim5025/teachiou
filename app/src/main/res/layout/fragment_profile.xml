@@ -11,4 +11,9 @@
         android:layout_height="match_parent"
         android:text="PROFILE" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/nav_profile"
+        android:layout_width="401dp"
+        android:layout_height="676dp" />
+
 </FrameLayout>

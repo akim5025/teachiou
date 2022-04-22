@@ -3,6 +3,8 @@ package com.example.teachiou;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,14 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FragmentProfile extends Fragment {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    // Later on, Get users classes from firestore instead of using this static list
+    private String[] profileSettings = {"Edit profile", "Contacts", "Other"};
+    private View listItemsView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +68,20 @@ public class FragmentProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        listItemsView = inflater.inflate(R.layout.fragment_profile,container,false);
+        recyclerView = listItemsView.findViewById(R.id.nav_profile);
+
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        // this actually loads the list items to the recycler view
+
+        //TODO- fix the line below
+        //adapter = new AppAdapter(this, profileSettings);
+        recyclerView.setAdapter(adapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return listItemsView;
+        //return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }
