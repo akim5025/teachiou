@@ -209,9 +209,7 @@ public class FirebaseHelper {
     }
 
 
-    public ArrayList<String> getClassItems() {
-        return myClasses;
-    }
+    public ArrayList<String> getClassItems() {return myClasses;}
 
     public void addClasses(Object w, String field) {
         // edit WishListItem w to the database
@@ -323,15 +321,13 @@ public class FirebaseHelper {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             Map<String, String> map = (HashMap) documentSnapshot.get("CLASSES");
-                            /**
+
                             for (Map.Entry mapElement : map.entrySet()) {
                                 String key = (String) mapElement.getKey();
                                 String value = (String) mapElement.getValue();
                                 myClasses.add(value);
                             }
-                             **/
 
-                            myClasses.add("yayayayayaya");
 
                         }
                     }
@@ -340,7 +336,7 @@ public class FirebaseHelper {
 
     //https://stackoverflow.com/questions/48499310/how-to-return-a-documentsnapshot-as-a-result-of-a-method/48500679#48500679
     public interface FirestoreCallback {
-        void onCallback(ArrayList<String> myClasses);
+        void onCallback(ArrayList<String> myList);
 
     }
 }
