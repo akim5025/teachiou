@@ -33,7 +33,7 @@ public class FirebaseHelper {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private ArrayList<String> myClasses = new ArrayList<>();
+    private ArrayList<String> myClasses = new ArrayList<>();;
 
     public FirebaseHelper() {
         mAuth = FirebaseAuth.getInstance();
@@ -53,7 +53,8 @@ public class FirebaseHelper {
             //more here
             readData(new FirestoreCallback() {
                 @Override
-                public void onCallback(ArrayList<String> myClasses) {
+                public ArrayList<String> onCallback(ArrayList<String> myList) {
+                    return myList;
                 }
             });
         }
@@ -94,8 +95,9 @@ public class FirebaseHelper {
         //handle asynch calls for reading data to keep myItems AL up to date.
         addData(wish, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<String> myList) {
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Indide addData, finished:  " + myList.toString());
+                return myList;
             }
         });
     }
@@ -106,8 +108,9 @@ public class FirebaseHelper {
         //handle asynch calls for reading data to keep myItems AL up to date.
         addQuestion(q, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<String> myList) {
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Indide addData, finished:  " + myList.toString());
+                return myList;
             }
         });
     }
@@ -208,16 +211,14 @@ public class FirebaseHelper {
                 });
     }
 
-
-    public ArrayList<String> getClassItems() {return myClasses;}
-
     public void addClasses(Object w, String field) {
         // edit WishListItem w to the database
         // this method is overloaded and incorporates the interface to handle the asynch calls
         editData(w, field, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<String> myList) {
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Inside editData, onCallback " + myList.toString());
+                return myList;
             }
         });
     }
@@ -245,8 +246,9 @@ public class FirebaseHelper {
         // this method is overloaded and incorporates the interface to handle the asynch calls
         editData(w, field, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<String> myList) {
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Inside editData, onCallback " + myList.toString());
+                return myList;
             }
         });
     }
@@ -274,8 +276,9 @@ public class FirebaseHelper {
         // this method is overloaded and incorporates the interface to handle the asynch calls
         deleteData(w, new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<String> myList) {
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Inside deleteData, onCallBack" + myList.toString());
+                return myList;
             }
         });
 
@@ -306,6 +309,16 @@ public class FirebaseHelper {
 
     }
 
+    public ArrayList<String> getClassItems() {
+        readData(new FirestoreCallback() {
+            @Override
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
+                return myList;
+            }
+        });
+        return myClasses;
+    }
+
     /* https://www.youtube.com/watch?v=0ofkvm97i0s
     This video is good!!!   Basically he talks about what it means for tasks to be asychronous
     and how you can create an interface and then using that interface pass an object of the interface
@@ -322,22 +335,22 @@ public class FirebaseHelper {
                         if (documentSnapshot.exists()) {
                             Map<String, String> map = (HashMap) documentSnapshot.get("CLASSES");
 
+
                             for (Map.Entry mapElement : map.entrySet()) {
                                 String key = (String) mapElement.getKey();
                                 String value = (String) mapElement.getValue();
                                 myClasses.add(value);
                             }
-
+                            firestoreCallback.onCallback(myClasses);
 
                         }
                     }
                 });
     }
 
-    //https://stackoverflow.com/questions/48499310/how-to-return-a-documentsnapshot-as-a-result-of-a-method/48500679#48500679
-    public interface FirestoreCallback {
-        void onCallback(ArrayList<String> myList);
-
-    }
+//https://stackoverflow.com/questions/48499310/how-to-return-a-documentsnapshot-as-a-result-of-a-method/48500679#48500679
+public interface FirestoreCallback {
+    ArrayList<String> onCallback(ArrayList<String> myList);
+}
 }
 
