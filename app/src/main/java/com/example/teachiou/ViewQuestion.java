@@ -45,6 +45,7 @@ public class ViewQuestion extends AppCompatActivity {
         variable = answerET.getKeyListener();
         answerET.setKeyListener(null);
         // when teacher edits/answers isAnswered is set to true
+        // access role. if role is set to teacher isTeacher is true
         if (isTeacher){
             answerET.setKeyListener(variable);
         }

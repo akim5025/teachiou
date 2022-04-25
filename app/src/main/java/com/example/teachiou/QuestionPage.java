@@ -15,6 +15,7 @@ public class QuestionPage extends AppCompatActivity {
     // CITATION: Code from Wishlist project was used as starting point
     private ArrayList<Question> myList;
     private static final String TAG = "Denna";
+    private String c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class QuestionPage extends AppCompatActivity {
 
         //myList = MainActivity.firebaseHelper.getWishListItems();
         Intent intent = getIntent();
-
+        c = intent.getStringExtra("className");
         ArrayAdapter<Question> listAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, myList);
 
@@ -44,6 +45,7 @@ public class QuestionPage extends AppCompatActivity {
 
     public void newQuestion(View v){
         Intent intent = new Intent(QuestionPage.this, AskQuestion.class);
+        intent.putExtra("className", c);
         startActivityForResult(intent, 1);
     }
 

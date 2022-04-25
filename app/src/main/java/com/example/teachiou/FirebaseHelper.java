@@ -100,11 +100,11 @@ public class FirebaseHelper {
         });
     }
 
-    public void addQuestion(Question q) {
+    public void addQuestion(Question q,String c) {
         //add wishlist item to the database
         //this method will be overloaded nd the other method will incorporate the interface to
         //handle asynch calls for reading data to keep myItems AL up to date.
-        addQuestion(q, new FirestoreCallback() {
+        addQuestion(q, c, new FirestoreCallback() {
             @Override
             public void onCallback(ArrayList<String> myList) {
                 Log.i(TAG, "Indide addData, finished:  " + myList.toString());
@@ -148,11 +148,11 @@ public class FirebaseHelper {
                 });
     }
 
-    private void addQuestion(Question q, FirestoreCallback firestoreCallback) {
+    private void addQuestion(Question q, String className, FirestoreCallback firestoreCallback) {
         Map<String, Object> question = new HashMap<>();
         question.put("title", q.getTitle());
         question.put("body", q.getBody());
-        db.collection("classes").document("classes").collection("questions")
+        db.collection("classes").document(className).collection("questions")
                 .add(question)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -165,7 +165,7 @@ public class FirebaseHelper {
                         // contains a reference to the newly created document. We
                         // can use this to extract the docID from firestore.
 
-                        db.collection("classes").document("classes").collection("questions")
+                        db.collection("classes").document(className).collection("questions")
                                 .document(documentReference.getId())
                                 .update("docID", documentReference.getId());
                         Log.i(TAG, "just added " + q.getTitle());

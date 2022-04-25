@@ -14,7 +14,7 @@ public class AskQuestion extends AppCompatActivity {
     private String body, title, answer, imageID;
     private int time;
     private boolean isAnswered;
-
+    private String c;
     private EditText bodyET, titleET, imageET;
 
     @Override
@@ -24,6 +24,9 @@ public class AskQuestion extends AppCompatActivity {
 
         bodyET = findViewById(R.id.bodyET);
         titleET = findViewById(R.id.titleET);
+
+        Intent intent = getIntent();
+        c = intent.getStringExtra("className");
     }
 
     public void addData(View v) {
@@ -32,7 +35,7 @@ public class AskQuestion extends AppCompatActivity {
 
         Question q = new Question(body, title);
         //insert firebaseHelper code to addData
-        firebaseHelper.addQuestion(q);
+        firebaseHelper.addQuestion(q, c);
         bodyET.setText("");
         titleET.setText("");
     }
