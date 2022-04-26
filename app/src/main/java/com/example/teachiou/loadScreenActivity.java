@@ -10,11 +10,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.airbnb.lottie.LottieAnimationView;
+import androidx.cardview.widget.CardView;
 
 public class loadScreenActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 5000;
     Animation topAnim, botAnim;
+    CardView cardView;
 
     LottieAnimationView lottieLoad;
 
@@ -27,9 +29,10 @@ public class loadScreenActivity extends AppCompatActivity {
         topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
         botAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
+        cardView = findViewById(R.id.splashScreenCardView);
         lottieLoad = findViewById(R.id.lottiePlus);
 
-        lottieLoad.setAnimation(botAnim);
+        cardView.setAnimation(topAnim);
         lottieLoad.playAnimation();
 
         new Handler().postDelayed(new Runnable() {

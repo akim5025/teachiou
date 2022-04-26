@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textViewWidth">200dp</dimen>
+    <dimen name="textViewHeight">40dp</dimen>
+    <dimen name="editTextWidth">200dp</dimen>
+    <dimen name="editTextHeight">60dp</dimen>
+    <dimen name="bottomMargin">50dp</dimen>
+    <dimen name="screenMargin">15dp</dimen>
+    <dimen name="largeScreenMargin">50dp</dimen>
+    <dimen name="topPadding">50dp</dimen>
+    <dimen name="editTextPadding">10dp</dimen>
+    <dimen name="splashScreenText">150dp</dimen>
+    <dimen name="splashScreenCurve">20dp</dimen>
+    <dimen name="textInput">300dp</dimen>
+    <dimen name="taskWidth">180dp</dimen>
+    <dimen name="taskHeight">60dp</dimen>
+    <dimen name="taskTextSize">14sp</dimen>
+</resources>

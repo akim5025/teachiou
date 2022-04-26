@@ -6,17 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".loadScreenActivity">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/splashScreenText"
+        android:layout_margin="@dimen/screenMargin"
+        app:cardBackgroundColor="@color/blue_2"
+        app:cardCornerRadius="@dimen/splashScreenCurve"
+        android:id="@+id/splashScreenCardView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="@dimen/screenMargin"
+            android:paddingHorizontal="@dimen/screenMargin"
+            android:shadowColor="@color/black"
+            android:shadowDx="5"
+            android:shadowDy="1"
+            android:shadowRadius="8"
+            android:text="Teachiou"
+            android:textAlignment="center"
+            android:textColor="@color/blue_1"
+            android:textSize="60sp"
+            app:layout_constraintBottom_toTopOf="@+id/lottiePlus"
+            app:layout_constraintEnd_toStartOf="@+id/lottiePlus"
+            app:layout_constraintStart_toEndOf="@+id/lottiePlus"
+            app:layout_constraintTop_toBottomOf="@+id/lottiePlus"
+            app:layout_constraintVertical_bias="0.706" />
+    </androidx.cardview.widget.CardView>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottiePlus"
         android:layout_width="194dp"
         android:layout_height="229dp"
-        app:lottie_repeatCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_rawRes="@raw/loading" />
+        app:layout_constraintVertical_bias="0.585"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_repeatCount="3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

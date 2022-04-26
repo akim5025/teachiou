@@ -69,10 +69,8 @@ public class FragmentProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         listItemsView = inflater.inflate(R.layout.fragment_profile,container,false);
-        recyclerView = listItemsView.findViewById(R.id.nav_profile);
 
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
 
         // this actually loads the list items to the recycler view
 
