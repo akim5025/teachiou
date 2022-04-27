@@ -12,6 +12,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class FirebaseHelper {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private ArrayList<String> myClasses = new ArrayList<>();;
+    private ArrayList<String> myClasses = new ArrayList<>();
 
     public FirebaseHelper() {
         mAuth = FirebaseAuth.getInstance();
@@ -310,12 +311,6 @@ public class FirebaseHelper {
     }
 
     public ArrayList<String> getClassItems() {
-        readData(new FirestoreCallback() {
-            @Override
-            public ArrayList<String> onCallback(ArrayList<String> myList) {
-                return myList;
-            }
-        });
         return myClasses;
     }
 
@@ -335,14 +330,11 @@ public class FirebaseHelper {
                         if (documentSnapshot.exists()) {
                             Map<String, String> map = (HashMap) documentSnapshot.get("CLASSES");
 
-
                             for (Map.Entry mapElement : map.entrySet()) {
-                                String key = (String) mapElement.getKey();
                                 String value = (String) mapElement.getValue();
                                 myClasses.add(value);
                             }
                             firestoreCallback.onCallback(myClasses);
-
                         }
                     }
                 });

@@ -17,7 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -48,6 +52,12 @@ public class FragmentHome extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+
+    private static String uid;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private ArrayList<String> myClasses = new ArrayList<String>();
 
 
 
@@ -93,15 +103,46 @@ public class FragmentHome extends Fragment {
         listItemsView = inflater.inflate(R.layout.fragment_home,container,false);
         recyclerView = listItemsView.findViewById(R.id.classesList);
         firebaseHelper = new FirebaseHelper();
-
+        firebaseHelper.attachReadDataToUser();
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         // this actually loads the list items to the recycler view
-        adapter = new AppAdapter(this, classes);
-        recyclerView.setAdapter(adapter);
 
+
+
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getUid();
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("users").document(uid).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            Map<String, String> map = (HashMap) documentSnapshot.get("CLASSES");
+
+                            for (Map.Entry mapElement : map.entrySet()) {
+                                String value = (String) mapElement.getValue();
+                                myClasses.add(value);
+                            }
+                            Log.i("AHHHHHHHHHHHHHHHHH", myClasses.toString());
+
+                            Object[] objectClassesArray = myClasses.toArray();
+
+                            String[] stringClassArray = Arrays.copyOf(objectClassesArray, objectClassesArray.length, String[].class);
+
+                            Log.i("REERREERREERREER", (String) stringClassArray[0] + " and " + stringClassArray[1]);
+
+                            //firestoreCallback.onCallback(myClasses);
+
+                            adapter = new AppAdapter(new FragmentHome(), stringClassArray);
+                            recyclerView.setAdapter(adapter);
+
+                        }
+                    }
+                });
 
         Log.i("8888888888888888888", firebaseHelper.getClassItems().toString());
         //firebaseHelper.getClassItems().toString()
