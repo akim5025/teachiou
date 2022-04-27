@@ -44,6 +44,26 @@
                 android:fontFamily="sans-serif-condensed"
                 android:text="Calc BC"
                 android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="AP Language and Compostition"
+                android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Physics"
+                android:textSize="@dimen/smallFontSize" />
         </LinearLayout>
     </ScrollView>
 

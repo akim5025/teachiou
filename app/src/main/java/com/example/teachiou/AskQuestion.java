@@ -27,6 +27,8 @@ public class AskQuestion extends AppCompatActivity {
 
         Intent intent = getIntent();
         c = intent.getStringExtra("className");
+
+        //set DROP DOWN to THIS INTENT VALUE
     }
 
     public void addData(View v) {
@@ -35,6 +37,8 @@ public class AskQuestion extends AppCompatActivity {
 
         Question q = new Question(body, title);
         //insert firebaseHelper code to addData
+
+        //PASS VALUE OF DROP DOWN INTO addQuestion INSTEAD OF THE INTENT DATA
         firebaseHelper.addQuestion(q, c);
         bodyET.setText("");
         titleET.setText("");
