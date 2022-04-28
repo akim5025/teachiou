@@ -76,10 +76,10 @@ public class FragmentProfile extends Fragment {
 
         //TODO- fix the line below
         //adapter = new AppAdapter(this, profileSettings);
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
-        return listItemsView;
-        //return inflater.inflate(R.layout.fragment_home, container, false);
+        //return listItemsView;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void signIn(String email, String password) {
 
-        // Intent intent = new Intent(this, FragmentHome.class); SEND TO HOME PAGE
+        Intent intent = new Intent(this, dashboard.class); //SEND TO HOME PAGE
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                             firebaseHelper.attachReadDataToUser();
 
 
-                            // startActivity(intent);  SEND TO HOME PAGE
+                            startActivity(intent);
 
                         } else {
                             // If sign in fails, display a message to the user.
