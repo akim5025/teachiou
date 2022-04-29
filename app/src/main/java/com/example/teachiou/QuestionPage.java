@@ -22,6 +22,8 @@ public class QuestionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_page);
 
+        //myList.add(new Question());
+
         //myList = MainActivity.firebaseHelper.getWishListItems();
         Intent intent = getIntent();
         c = intent.getStringExtra("className");
