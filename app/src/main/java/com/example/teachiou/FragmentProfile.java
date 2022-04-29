@@ -1,14 +1,30 @@
 package com.example.teachiou;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,13 +33,14 @@ import android.view.ViewGroup;
  */
 public class FragmentProfile extends Fragment {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private Button changeClasses;
+    private Button changeName;
+    private EditText changeNameET;
 
-    // Later on, Get users classes from firestore instead of using this static list
-    private String[] profileSettings = {"Edit profile", "Contacts", "Other"};
-    private View listItemsView;
+    private static String uid;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    FirebaseHelper firebaseHelper;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,18 +85,53 @@ public class FragmentProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        listItemsView = inflater.inflate(R.layout.fragment_profile,container,false);
 
-        layoutManager = new LinearLayoutManager(getContext());
+        View root = inflater.inflate(R.layout.fragment_profile, container, false);
+        changeClasses = root.findViewById(R.id.changeClassesButton);
+        changeName = root.findViewById(R.id.changeNameButton);
+        changeNameET = root.findViewById(R.id.newNameET);
 
-        // this actually loads the list items to the recycler view
+        changeClasses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity)v.getContext();
 
-        //TODO- fix the line below
-        //adapter = new AppAdapter(this, profileSettings);
-        //recyclerView.setAdapter(adapter);
+                Intent intent = new Intent(activity, ClassSelection.class);
+                activity.startActivity(intent);
+            }
+        });
+
+        firebaseHelper = new FirebaseHelper();
+        firebaseHelper.attachReadDataToUser();
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getUid();
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("users").document(uid).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            String userName = (String) documentSnapshot.get("NAME");
+                            changeNameET.setHint(userName);
+                        }
+                    }
+                });
+
+
+
+        changeName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newUserName = changeNameET.getText().toString();
+                db.collection("users").document(uid).update("NAME", newUserName);
+
+                AppCompatActivity activity = (AppCompatActivity)v.getContext();
+                Toast.makeText(activity, "Name Updated to " + newUserName, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Inflate the layout for this fragment
-        //return listItemsView;
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return root;
     }
 }
