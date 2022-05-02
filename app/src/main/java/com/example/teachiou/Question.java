@@ -2,10 +2,12 @@ package com.example.teachiou;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.Calendar
+import java.util.Date;
+
 
 public class Question implements Parcelable {
-    private String body, title, answer, docID, imageID;
-    private int time;
+    private String body, title, answer, docID, imageID, time;
     private boolean isAnswered;
 
 
@@ -15,7 +17,7 @@ public class Question implements Parcelable {
         answer = in.readString();
         docID = in.readString();
         imageID = in.readString();
-        time = in.readInt();
+        time = in.readString();
         isAnswered = in.readByte() != 0;
     }
 
@@ -43,21 +45,22 @@ public class Question implements Parcelable {
         parcel.writeString(answer);
         parcel.writeString(docID);
         parcel.writeString(imageID);
-        parcel.writeInt(time);
+        parcel.writeString(time);
         parcel.writeByte((byte) (isAnswered ? 1 : 0));
     }
 
-    public Question(String body, String title, String answer, String docID, String imageID, int time, boolean isAnswered) {
+    public Question(String body, String title, String answer, String docID, String imageID, boolean isAnswered) {
+        Date currentTime = Calendar.getInstance().getTime();
         this.body = body;
         this.title = title;
         this.answer = answer;
         this.docID = docID;
         this.imageID = imageID;
-        this.time = time;
+        this.time = currentTime.toString();
         this.isAnswered = isAnswered;
     }
 
-    public Question(String body, String title, String answer, String docID ,int time, boolean isAnswered) {
+    public Question(String body, String title, String answer, String docID, boolean isAnswered) {
         this.body = body;
         this.title = title;
         this.answer = answer;
@@ -71,7 +74,7 @@ public class Question implements Parcelable {
         this.title = title;
         this.answer = "";
         this.docID = "";
-        this.time = 0;
+        this.time = "";
         this.isAnswered = false;
     }
 
@@ -115,11 +118,11 @@ public class Question implements Parcelable {
         this.imageID = imageID;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
