@@ -39,6 +39,7 @@ public class QuestionPage extends AppCompatActivity {
                 Intent intent = new Intent(QuestionPage.this, ViewQuestion.class);
 
                 intent.putExtra("QUESTION", myList.get(i));
+                intent.putExtra("className", c);
                 startActivity(intent);
 
             }
