@@ -64,6 +64,66 @@
                 android:fontFamily="sans-serif-condensed"
                 android:text="Physics"
                 android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="AP Psychology"
+                android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="AP Government"
+                android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Culinary Arts"
+                android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Childhood Studies"
+                android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="AP Gym"
+                android:textSize="@dimen/smallFontSize" />
+
+            <CheckBox
+                android:id="@+id/checkbox_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallPadding"
+                android:layout_marginTop="@dimen/smallPadding"
+                android:fontFamily="sans-serif-condensed"
+                android:text="AP Yoga"
+                android:textSize="@dimen/smallFontSize" />
         </LinearLayout>
     </ScrollView>
 

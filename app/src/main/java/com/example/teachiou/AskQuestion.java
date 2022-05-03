@@ -11,11 +11,11 @@ import android.widget.EditText;
 public class AskQuestion extends AppCompatActivity {
 
     public static FirebaseHelper firebaseHelper = new FirebaseHelper();
-    private String body, title, answer, imageID;
+    private String body, title, answer, imageID, classname;
     private int time;
     private boolean isAnswered;
     private String c;
-    private EditText bodyET, titleET, imageET;
+    private EditText bodyET, titleET, imageET, classET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class AskQuestion extends AppCompatActivity {
 
         bodyET = findViewById(R.id.bodyET);
         titleET = findViewById(R.id.titleET);
+        classET = findViewById(R.id.classET);
 
         Intent intent = getIntent();
         c = intent.getStringExtra("className");
@@ -34,14 +35,16 @@ public class AskQuestion extends AppCompatActivity {
     public void addData(View v) {
         body = bodyET.getText().toString();
         title = titleET.getText().toString();
+        classname = classET.getText().toString();
 
         Question q = new Question(body, title);
         //insert firebaseHelper code to addData
 
         //PASS VALUE OF DROP DOWN INTO addQuestion INSTEAD OF THE INTENT DATA
-        firebaseHelper.addQuestion(q, c);
+        firebaseHelper.addQuestion(q, classname);
         bodyET.setText("");
         titleET.setText("");
+        classET.setText("");
     }
 
     public void back(View v){
