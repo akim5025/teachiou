@@ -2,13 +2,14 @@ package com.example.teachiou;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.Calendar
+import java.util.Calendar;
 import java.util.Date;
 
 
 public class Question implements Parcelable {
     private String body, title, answer, docID, imageID, time;
     private boolean isAnswered;
+    private Date currentTime = Calendar.getInstance().getTime();
 
 
     protected Question(Parcel in) {
@@ -50,7 +51,7 @@ public class Question implements Parcelable {
     }
 
     public Question(String body, String title, String answer, String docID, String imageID, boolean isAnswered) {
-        Date currentTime = Calendar.getInstance().getTime();
+
         this.body = body;
         this.title = title;
         this.answer = answer;
@@ -65,7 +66,7 @@ public class Question implements Parcelable {
         this.title = title;
         this.answer = answer;
         this.docID = docID;
-        this.time = time;
+        this.time = currentTime.toString();
         this.isAnswered = isAnswered;
     }
 
@@ -74,7 +75,7 @@ public class Question implements Parcelable {
         this.title = title;
         this.answer = "";
         this.docID = "";
-        this.time = "";
+        this.time = currentTime.toString();
         this.isAnswered = false;
     }
 
