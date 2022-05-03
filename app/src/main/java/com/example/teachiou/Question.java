@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 public class Question implements Parcelable {
-    private String body, title, answer, docID, imageID, time;
+    private String body, title, answer, docID, imageID, time, username;
     private boolean isAnswered;
     private Date currentTime = Calendar.getInstance().getTime();
 
@@ -19,6 +19,7 @@ public class Question implements Parcelable {
         docID = in.readString();
         imageID = in.readString();
         time = in.readString();
+        username = in.readString();
         isAnswered = in.readByte() != 0;
     }
 
@@ -46,6 +47,7 @@ public class Question implements Parcelable {
         parcel.writeString(answer);
         parcel.writeString(docID);
         parcel.writeString(imageID);
+        parcel.writeString(username);
         parcel.writeString(time);
         parcel.writeByte((byte) (isAnswered ? 1 : 0));
     }
