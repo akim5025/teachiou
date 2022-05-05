@@ -41,7 +41,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
         Question question = questionArrayList.get(position);
         holder.tvTitle.setText(question.getTitle());
         holder.tvBody.setText(question.getBody());
-        holder.tvUsername.setText(question.getUsername());
+        //holder.tvUsername.setText(question.getUsername());
 
     }
 
