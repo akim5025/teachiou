@@ -157,6 +157,7 @@ public class FirebaseHelper {
         Map<String, Object> question = new HashMap<>();
         question.put("title", q.getTitle());
         question.put("body", q.getBody());
+        question.put("answer", q.getAnswer());
         db.collection("classes").document(className).collection("questions")
                 .add(question)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -258,6 +259,37 @@ public class FirebaseHelper {
     private void editData(Object w, String field, FirestoreCallback firestoreCallback) {
         db.collection("users").document(uid)
                 .update(field, w)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.i(TAG, "Success updating document");
+                        readData(firestoreCallback);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i(TAG, "Error updating document", e);
+                    }
+                });
+    }
+
+    public void updateAnswer(Question q, String className, String docId) {
+        // edit WishListItem w to the database
+        // this method is overloaded and incorporates the interface to handle the asynch calls
+        updateAnswer(q, className, docId, new FirestoreCallback() {
+            @Override
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
+                Log.i(TAG, "Inside editData, onCallback " + myList.toString());
+                return myList;
+            }
+        });
+    }
+
+    private void updateAnswer(Question q, String className, String docId, FirestoreCallback firestoreCallback){
+        db.collection("classes").document(className).collection("questions")
+                .document(docId)
+                .update("answer", q)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

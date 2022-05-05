@@ -40,6 +40,7 @@ public class QuestionPage extends AppCompatActivity {
 
                 intent.putExtra("QUESTION", myList.get(i));
                 intent.putExtra("className", c);
+                intent.putExtra("index", i);
                 startActivity(intent);
 
             }

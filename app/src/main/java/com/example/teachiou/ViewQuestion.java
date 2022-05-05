@@ -1,5 +1,6 @@
 package com.example.teachiou;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,11 +15,13 @@ import android.text.method.KeyListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.core.View;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,7 +41,7 @@ public class ViewQuestion extends AppCompatActivity {
     private static String uid;
     private String role = "";
     private Button buttonSave;
-
+    public static FirebaseHelper firebaseHelper = new FirebaseHelper();
 
 
 
@@ -113,5 +116,16 @@ public class ViewQuestion extends AppCompatActivity {
         }
     };
 
+    public void saveChanges(View v){
+        String newAnswer = answerET.getText().toString();
+        q.setAnswer(newAnswer);
+
+        Intent intent = getIntent();
+        String className = intent.getStringExtra("className");
+        String docId = q.getDocID();
+
+        firebaseHelper.updateAnswer(q, className, docId);
+        q.setAnswered(true);
+    }
 
 }
