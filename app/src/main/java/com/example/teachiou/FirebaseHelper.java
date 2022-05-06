@@ -12,6 +12,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ public class FirebaseHelper {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private ArrayList<String> myClasses = new ArrayList<>();
+    private Object value;
 
     public FirebaseHelper() {
         mAuth = FirebaseAuth.getInstance();
@@ -372,10 +374,35 @@ public class FirebaseHelper {
                     }
                 });
     }
+    public void readUsersField(String field, fieldCallback myFieldCallback) {
+        Log.d(TAG, "uid inside of readUsersField: " + uid);
+        DocumentReference mSettings = db.collection("users").document(uid);
+        mSettings.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    value = documentSnapshot.getString(field);
+                }
+                myFieldCallback.onCallbackField(value);
+            }
+        });
+    }
+
+    public Object getUsersField(String field) {
+        readUsersField(field, new fieldCallback() {
+            @Override
+            public void onCallbackField(Object value) {
+            }
+        });
+        return value;
+    }
 
 //https://stackoverflow.com/questions/48499310/how-to-return-a-documentsnapshot-as-a-result-of-a-method/48500679#48500679
 public interface FirestoreCallback {
     ArrayList<String> onCallback(ArrayList<String> myList);
+}
+public interface fieldCallback {
+    void onCallbackField(Object valueCallback);
 }
 }
 

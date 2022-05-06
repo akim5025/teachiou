@@ -1,13 +1,23 @@
 package com.example.teachiou;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -16,6 +26,10 @@ public class QuestionPage extends AppCompatActivity {
     private ArrayList<Question> myList;
     private static final String TAG = "Denna";
     private String c;
+    RecyclerView recyclerView;
+    ArrayList<Question> questionArrayList;
+    QuestionListAdapter questionListAdapter;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +44,44 @@ public class QuestionPage extends AppCompatActivity {
         ArrayAdapter<Question> listAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, myList);
 
-        ListView listView = (ListView) findViewById(R.id.questionList);
-        listView.setAdapter(listAdapter);
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(QuestionPage.this, ViewQuestion.class);
+        db = FirebaseFirestore.getInstance();
+        questionArrayList = new ArrayList<Question>();
+        questionListAdapter = new QuestionListAdapter(QuestionPage.this, questionArrayList);
 
-                intent.putExtra("QUESTION", myList.get(i));
-                intent.putExtra("className", c);
-                intent.putExtra("index", i);
-                startActivity(intent);
+        recyclerView.setAdapter(questionListAdapter);
 
-            }
-        });
+        EventChangeListener();
+
+    }
+
+    private void EventChangeListener() {
+        Intent intent = getIntent();
+        c = intent.getStringExtra("className");
+        db.collection("classes").document(c).collection("questions")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (error != null) {
+                            Log.e("Firestore error", error.getMessage());
+                            return;
+                        }
+
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                questionArrayList.add(dc.getDocument().toObject(Question.class));
+                            }
+                        }
+
+                        questionListAdapter.notifyDataSetChanged();
+
+                    }
+                });
+
     }
 
     public void newQuestion(View v){

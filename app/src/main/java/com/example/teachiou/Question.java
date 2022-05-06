@@ -53,7 +53,7 @@ public class Question implements Parcelable {
     }
 
     public Question(String body, String title, String answer, String docID, String imageID, boolean isAnswered) {
-
+        this.username = "";
         this.body = body;
         this.title = title;
         this.answer = answer;
@@ -65,6 +65,7 @@ public class Question implements Parcelable {
 
     public Question(String body, String title, String answer, String docID, boolean isAnswered) {
         this.body = body;
+        this.username = "";
         this.title = title;
         this.answer = answer;
         this.docID = docID;
@@ -74,6 +75,7 @@ public class Question implements Parcelable {
 
     public Question(String body, String title) {
         this.body = body;
+        this.username = "";
         this.title = title;
         this.answer = "";
         this.docID = "";
@@ -133,7 +135,9 @@ public class Question implements Parcelable {
         return isAnswered;
     }
 
-    public void setAnswered(boolean answered) {
-        isAnswered = answered;
-    }
+    public void setAnswered(boolean answered) { isAnswered = answered; }
+
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
 }

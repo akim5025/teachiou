@@ -16,4 +16,13 @@
         <!-- <item name="android:fontFamily">@font/sansprolight</item> -->
 
     </style>
+
+    <style name="Theme.Teachiou.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Teachiou.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Teachiou.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
