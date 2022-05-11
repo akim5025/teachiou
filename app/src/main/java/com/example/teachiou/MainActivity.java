@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public void test(View v) {
         Intent intent = new Intent(this, firebaseteseting.class);
         startActivity(intent);
+
     }
 
     public void signOut(View v) {

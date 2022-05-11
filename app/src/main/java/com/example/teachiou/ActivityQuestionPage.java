@@ -36,7 +36,7 @@ public class ActivityQuestionPage extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.questionList);
 
-        // listView.setAdapter(listAdapter);
+        listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

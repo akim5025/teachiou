@@ -1,12 +1,18 @@
 package com.example.teachiou;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,7 @@ public class FragmentNotifications extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Button sendNotification;
 
     public FragmentNotifications() {
         // Required empty public constructor
@@ -59,6 +66,25 @@ public class FragmentNotifications extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
+
+        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        sendNotification = root.findViewById(R.id.testNotifButton);
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
+        sendNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity)v.getContext();
+                FcmNotificationsSender notificationsSender = new FcmNotificationsSender(
+                        "/topics/all",
+                        "Class Name",
+                        "has been updated",
+                        activity.getApplicationContext(),
+                        activity);
+                notificationsSender.SendNotifications();
+                Log.d("ISHAAAAAAAAAAAAAAAAAAN", "Notification Sent");
+                //https://www.youtube.com/watch?v=cyG5SAaucHs&t=16s
+            }
+        });
+        return root;
     }
 }
