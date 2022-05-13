@@ -10,12 +10,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -347,6 +350,37 @@ public class FirebaseHelper {
 
     public ArrayList<String> getClassItems() {
         return myClasses;
+    }
+
+
+    //https://stackoverflow.com/questions/46706433/firebase-firestore-get-data-from-collection
+    //Showed me how to use Query
+    public ArrayList<Question> getQuestions(String className){
+        ArrayList<Question> qList = new ArrayList<>();
+        db.collection("classes").document(className).collection("questions").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documentSnapshots) {
+                        if (documentSnapshots.isEmpty()) {
+                            Log.d(TAG, "onSuccess: LIST EMPTY");
+                            return;
+                        } else {
+                            // Convert the whole Query Snapshot to a list of objects directly
+                            List<Question> questions = documentSnapshots.toObjects(Question.class);
+
+                            // Add all to list
+                            qList.addAll(questions);
+                            Log.d(TAG, "onSuccess: " + qList);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i(TAG, "Error retrieving qDATA", e);
+                    }
+                });
+        return qList;
     }
 
     /* https://www.youtube.com/watch?v=0ofkvm97i0s

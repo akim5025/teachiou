@@ -32,17 +32,21 @@ public class ActivityQuestionPage extends AppCompatActivity {
         ArrayAdapter<Question> listAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, myList);
 
-<<<<<<< Updated upstream
-        /**
+
+
         ListView listView = (ListView) findViewById(R.id.questionList);
+
         listView.setAdapter(listAdapter);
-=======
+
         //ListView listView = (ListView) findViewById(R.id.questionList);
 
-        // listView.setAdapter(listAdapter);
->>>>>>> Stashed changes
 
-        /**
+//FINISH
+//        listAdapter = ;
+//        recyclerView.setAdapter(adapter);
+        // listView.setAdapter(listAdapter);
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -53,7 +57,7 @@ public class ActivityQuestionPage extends AppCompatActivity {
 
             }
         });
-         **/
+
     }
 
     public void newQuestion(View v){
