@@ -91,7 +91,7 @@ public class AskQuestion extends AppCompatActivity {
     }
 
     public void addData(View v) {
-        body = bodyET.getText().toString();
+        //body = bodyET.getText().toString();
         title = titleET.getText().toString();
 
         Question q = new Question(body, title);
@@ -99,7 +99,7 @@ public class AskQuestion extends AppCompatActivity {
 
         //PASS VALUE OF DROP DOWN INTO addQuestion INSTEAD OF THE INTENT DATA
         firebaseHelper.addQuestion(q, classname);
-        bodyET.setText("");
+        //bodyET.setText("");
         titleET.setText("");
     }
 
