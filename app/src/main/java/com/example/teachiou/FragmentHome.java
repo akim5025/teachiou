@@ -38,7 +38,6 @@ public class FragmentHome extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
 
     // Later on, Get users classes from firestore instead of using this static list
-    private String[] classes = {"Math", "English", "Java"};
     private View listItemsView;
     public String choseClass = "";
     FirebaseHelper firebaseHelper;
@@ -132,9 +131,6 @@ public class FragmentHome extends Fragment {
                             Object[] objectClassesArray = myClasses.toArray();
 
                             String[] stringClassArray = Arrays.copyOf(objectClassesArray, objectClassesArray.length, String[].class);
-
-                            Log.i("REERREERREERREER", (String) stringClassArray[0] + " and " + stringClassArray[1]);
-
                             //firestoreCallback.onCallback(myClasses);
 
                             adapter = new AppAdapter(new FragmentHome(), stringClassArray);

@@ -45,9 +45,9 @@ public class firebaseteseting extends AppCompatActivity {
 
         firebaseHelper = new FirebaseHelper();
 
-        String test = (String) firebaseHelper.getUsersField("NAME");
+        firebaseHelper.getUsersField("NAME");
         Log.i("START", "START");
-        Log.i("testttttt", (String) firebaseHelper.getUsersField("NAME"));
+        Log.i("testttttt", firebaseHelper.getFieldValues().get(0));
         Log.i("END", "END");
         
         

@@ -37,7 +37,7 @@ public class FirebaseHelper {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private ArrayList<String> myClasses = new ArrayList<>();
-    private Object value;
+    private ArrayList<String> value = new ArrayList<>();;
 
     public FirebaseHelper() {
         mAuth = FirebaseAuth.getInstance();
@@ -381,19 +381,26 @@ public class FirebaseHelper {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    value = documentSnapshot.getString(field);
+                    String iValue = documentSnapshot.getString(field);
+                    Log.d(TAG, "iValue inside of readUsersField: " + iValue);
+                    value.add(iValue);
                 }
+                Log.i(TAG, "Success reading data: " + value.toString());
                 myFieldCallback.onCallbackField(value);
             }
         });
     }
 
-    public Object getUsersField(String field) {
+    public void getUsersField(String field) {
         readUsersField(field, new fieldCallback() {
             @Override
-            public void onCallbackField(Object value) {
+            public void onCallbackField(ArrayList<String> fieldValues) {
+
             }
         });
+    }
+
+    public ArrayList<String> getFieldValues() {
         return value;
     }
 
@@ -402,7 +409,7 @@ public interface FirestoreCallback {
     ArrayList<String> onCallback(ArrayList<String> myList);
 }
 public interface fieldCallback {
-    void onCallbackField(Object valueCallback);
+    void onCallbackField(ArrayList<String> fieldValues);
 }
 }
 

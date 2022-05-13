@@ -6,9 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,8 +32,8 @@ public class ActivityQuestionPage extends AppCompatActivity {
         ArrayAdapter<Question> listAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, myList);
 
+        /**
         ListView listView = (ListView) findViewById(R.id.questionList);
-
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -48,6 +46,7 @@ public class ActivityQuestionPage extends AppCompatActivity {
 
             }
         });
+         **/
     }
 
     public void newQuestion(View v){

@@ -33,7 +33,7 @@
         <activity android:name=".roleSelection" />
         <activity android:name=".ClassSelection" />
         <activity android:name=".SignUpScreen" />
-        <activity android:name=".ActivityQuestionPage" />
+        <activity android:name=".QuestionPage" />
         <activity
             android:name=".loadScreenActivity"
             android:exported="true">

@@ -76,7 +76,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
 
                 AppCompatActivity activity = (AppCompatActivity)view.getContext();
 
-                Intent intent = new Intent(activity, ActivityQuestionPage.class);
+                Intent intent = new Intent(activity, QuestionPage.class);
                 intent.putExtra("className", classData[position]);
                 activity.startActivity(intent);
 

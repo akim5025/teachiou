@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="newQuestion"
-    tools:context=".ActivityQuestionPage">
+    tools:context=".QuestionPage">
 
     <!--    <TextView-->
     <!--        android:id="@+id/textView4"-->
@@ -70,30 +70,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.012" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView"-->
-    <!--        android:layout_width="390dp"-->
-    <!--        android:layout_height="44dp"-->
-    <!--        android:text="PLACEHOLDER"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.476"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.123" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView2"-->
-    <!--        android:layout_width="390dp"-->
-    <!--        android:layout_height="44dp"-->
-    <!--        android:text="PLACEHOLDER"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.476"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.218" />-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="409dp"
         android:layout_height="523dp"
@@ -117,11 +93,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.973" />
 
-    <ListView
-        android:id="@+id/questionList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ></ListView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
