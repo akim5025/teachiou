@@ -12,16 +12,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapter.myViewHolder>{
 
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
     Context context;
     ArrayList<Question> questionArrayList;
     FirebaseHelper firebaseHelper = new FirebaseHelper();
+    private String uid = "";
 
     public QuestionListAdapter(Context context, ArrayList<Question> questionArrayList) {
         this.context = context;
@@ -40,11 +47,16 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     @Override
     public void onBindViewHolder(@NonNull QuestionListAdapter.myViewHolder holder, int position) {
 
+
+
         Question question = questionArrayList.get(position);
-        firebaseHelper.getUsersField("NAME");
         holder.tvTitle.setText(question.getTitle());
         holder.tvBody.setText(question.getBody());
-        holder.tvUsername.setText(firebaseHelper.getFieldValues().get(0));
+        holder.tvUsername.setText(question.getUsername());
+        Picasso.get().load(question.getImageID()).into(holder.ivQuestion);
+        Picasso.get().load(question.getUserImageID()).into(holder.ivProfile);
+
+
 
     }
 

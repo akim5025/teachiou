@@ -2,23 +2,32 @@ package com.example.teachiou;
 
 import static com.example.teachiou.MainActivity.firebaseHelper;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,9 +35,12 @@ import java.util.Map;
 public class SignUpScreen extends AppCompatActivity {
 
     EditText emailET, passwordET, nameET;
-    String name, userID;
+    String name, userID, imageID;
     private FirebaseAuth mAuth;
     FirebaseFirestore db;
+
+    private Uri imageUri;
+    private static final int IMAGE_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +80,7 @@ public class SignUpScreen extends AppCompatActivity {
                                 dataStart.put("PASSWORD", password);
                                 dataStart.put("ROLE", "");
                                 dataStart.put("CLASSES", mapHolder);
+                                dataStart.put("IMAGEID", imageID);
 
                                 db.collection("users").document(userID).set(dataStart);
 
@@ -103,5 +116,52 @@ public class SignUpScreen extends AppCompatActivity {
     public void signInScreen(View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private String getFileExtention(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    public void openImage(View v) {
+        Intent intent = new Intent();
+        intent.setType("image/");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+
+            uploadImage();
+        }
+    }
+
+    public void uploadImage() {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Uploading");
+        pd.show();
+
+        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("uploads").child(System.currentTimeMillis() + "." + getFileExtention(imageUri));
+        fileRef.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        imageID = uri.toString();
+                        Log.i("url string", imageID);
+                        pd.dismiss();
+                    }
+                });
+            }
+        });
     }
 }

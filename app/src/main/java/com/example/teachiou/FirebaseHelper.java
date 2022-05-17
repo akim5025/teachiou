@@ -162,7 +162,10 @@ public class FirebaseHelper {
         Map<String, Object> question = new HashMap<>();
         question.put("title", q.getTitle());
         question.put("body", q.getBody());
+        question.put("imageID", q.getImageID());
         question.put("answer", q.getAnswer());
+        question.put("username", q.getUsername());
+        question.put("userImageID", q.getUserImageID());
         db.collection("classes").document(className).collection("questions")
                 .add(question)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

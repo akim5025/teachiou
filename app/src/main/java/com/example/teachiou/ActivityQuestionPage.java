@@ -14,6 +14,7 @@ import java.util.ArrayList;
 // CITATION: Code from WishList project was used as starting point
 public class ActivityQuestionPage extends AppCompatActivity {
     // CITATION: Code from Wishlist project was used as starting point
+    /**
     private ArrayList<Question> myList;
     private static final String TAG = "Denna";
 
@@ -64,6 +65,6 @@ public class ActivityQuestionPage extends AppCompatActivity {
         Intent intent = new Intent(ActivityQuestionPage.this, AskQuestion.class);
         startActivityForResult(intent, 1);
     }
-
+**/
 
 }

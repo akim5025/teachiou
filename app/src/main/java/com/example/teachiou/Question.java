@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 public class Question implements Parcelable {
-    private String body, title, answer, docID, imageID, time, username;
+    private String body, title, answer, docID, imageID, time, username, userImageID;
     private boolean isAnswered;
     private Date currentTime = Calendar.getInstance().getTime();
 
@@ -63,6 +63,18 @@ public class Question implements Parcelable {
         this.isAnswered = isAnswered;
     }
 
+    public Question(String body, String title, String imageID, String username, String userImageID) {
+        this.username = username;
+        this.body = body;
+        this.title = title;
+        this.answer = "";
+        this.docID = "";
+        this.imageID = imageID;
+        this.userImageID  = userImageID;
+        this.time = currentTime.toString();
+        this.isAnswered = false;
+    }
+
     public Question(String body, String title, String answer, String docID, boolean isAnswered) {
         this.body = body;
         this.username = "";
@@ -83,6 +95,9 @@ public class Question implements Parcelable {
         this.isAnswered = false;
     }
 
+    public Question() {
+
+    }
     public String getBody() {
         return body;
     }
@@ -136,6 +151,14 @@ public class Question implements Parcelable {
     }
 
     public void setAnswered(boolean answered) { isAnswered = answered; }
+
+    public void setUserImageID(String userImageID) {
+        this.userImageID = userImageID;
+    }
+
+    public String getUserImageID() {
+        return userImageID;
+    }
 
     public String getUsername() { return username; }
 

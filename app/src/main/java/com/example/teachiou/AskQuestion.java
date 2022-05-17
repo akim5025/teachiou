@@ -1,21 +1,32 @@
 package com.example.teachiou;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +37,7 @@ import java.util.Map;
 public class AskQuestion extends AppCompatActivity {
 
     public static FirebaseHelper firebaseHelper = new FirebaseHelper();
-    private String body, title, answer, imageID, classname;
+    private String body, title, answer, imageID, classname, username, userImageID;
     private int time;
     private boolean isAnswered;
     private String c;
@@ -38,10 +49,16 @@ public class AskQuestion extends AppCompatActivity {
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterItems;
 
+    private Uri imageUri;
+    private static final int IMAGE_REQUEST = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ask_question);
+
+        bodyET = findViewById(R.id.bodyET);
+        titleET = findViewById(R.id.titleET);
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, classes);
@@ -91,20 +108,86 @@ public class AskQuestion extends AppCompatActivity {
     }
 
     public void addData(View v) {
-        //body = bodyET.getText().toString();
+        body = bodyET.getText().toString();
         title = titleET.getText().toString();
+        classname = autoCompleteTextView.getText().toString();
 
-        Question q = new Question(body, title);
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getUid();
+        db.collection("users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    String value = documentSnapshot.getString("NAME");
+                    userImageID = documentSnapshot.getString("IMAGEID");
+
+                    Question q = new Question(body, title, imageID, value, userImageID);
+                    firebaseHelper.addQuestion(q, classname);
+                    bodyET.setText("");
+                    titleET.setText("");
+
+                }
+            }
+        });
+
+
+
         //insert firebaseHelper code to addData
 
         //PASS VALUE OF DROP DOWN INTO addQuestion INSTEAD OF THE INTENT DATA
-        firebaseHelper.addQuestion(q, classname);
-        //bodyET.setText("");
-        titleET.setText("");
+
     }
 
     public void back(View v){
-        Intent intent = new Intent(AskQuestion.this, ActivityQuestionPage.class);
+        Intent intent = new Intent(AskQuestion.this, dashboard.class);
         startActivity(intent);
+    }
+
+    private String getFileExtention(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    public void openImage(View v) {
+        Intent intent = new Intent();
+        intent.setType("image/");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+
+            uploadImage();
+        }
+    }
+
+    public void uploadImage() {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Uploading");
+        pd.show();
+
+        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("uploads").child(System.currentTimeMillis() + "." + getFileExtention(imageUri));
+        fileRef.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        imageID = uri.toString();
+                        Log.i("url string", imageID);
+                        pd.dismiss();
+                    }
+                });
+            }
+        });
     }
 }
