@@ -1,22 +1,22 @@
-package com.example.teachiou;
+package com.example.teachiou.questionsrecyclerview;
 
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.teachiou.FirebaseHelper;
+import com.example.teachiou.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,6 +68,9 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
 
         TextView tvUsername, tvTitle, tvBody;
         ImageView ivProfile, ivQuestion;
+        RecyclerView commentRecyclerView;
+        EditText ETAnswer;
+        Button buttonAnswer;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +80,10 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
             tvBody = itemView.findViewById(R.id.tvBody);
             ivProfile = itemView.findViewById(R.id.ivProfile);
             ivQuestion = itemView.findViewById(R.id.ivQuestion);
+            commentRecyclerView = itemView.findViewById(R.id.commentrecyclerview);
+            ETAnswer = itemView.findViewById(R.id.commentAnswerET);
+            buttonAnswer = itemView.findViewById(R.id.submitAnswerButton);
+
 
         }
     }

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.teachiou.commentsrecyclerview.Comment;
+import com.example.teachiou.questionsrecyclerview.Question;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -11,12 +13,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,18 +107,6 @@ public class FirebaseHelper {
         });
     }
 
-    public void addQuestion(Question q,String c) {
-        //add wishlist item to the database
-        //this method will be overloaded nd the other method will incorporate the interface to
-        //handle asynch calls for reading data to keep myItems AL up to date.
-        addQuestion(q, c, new FirestoreCallback() {
-            @Override
-            public ArrayList<String> onCallback(ArrayList<String> myList) {
-                Log.i(TAG, "Indide addData, finished:  " + myList.toString());
-                return myList;
-            }
-        });
-    }
 
     //this method will do the actual work of adding the wishlist item to the database.
     private void addData(classListItem classItem, FirestoreCallback firestoreCallback) {
@@ -199,6 +185,71 @@ public class FirebaseHelper {
                         Log.d(TAG, "Error adding element", e);
                     }
                 });
+    }
+
+    public void addQuestion(Question q, String c) {
+        //add wishlist item to the database
+        //this method will be overloaded nd the other method will incorporate the interface to
+        //handle asynch calls for reading data to keep myItems AL up to date.
+        addQuestion(q, c, new FirestoreCallback() {
+            @Override
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
+                Log.i(TAG, "Indide addData, finished:  " + myList.toString());
+                return myList;
+            }
+        });
+    }
+
+    private void addComment(Comment c, String className, String questionID, FirestoreCallback firestoreCallback) {
+        Map<String, Object> comment = new HashMap<>();
+        comment.put("answer", c.getAnswer());
+        comment.put("username", c.getUsername());
+        comment.put("userImageID", c.getUserImageID());
+        comment.put("time", c.getTime());
+        db.collection("classes").document(className).collection("questions").document(questionID).collection("comments")
+                .add(comment)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        // we are going to update the document we just added by
+                        // editing the docID instance variable so that it knows what
+                        // the value is for its docID in firestore.
+
+                        // in the onSuccess method, the documentReference parameter
+                        // contains a reference to the newly created document. We
+                        // can use this to extract the docID from firestore.
+
+                        db.collection("classes").document(className).collection("questions").document(questionID).collection("comments")
+                                .document(documentReference.getId())
+                                .update("docID", documentReference.getId());
+                        readData(firestoreCallback);
+
+                        // If we want the arrayList to be updated NOW, we call
+                        // readData.  If we don't care about continuing our work, then
+                        // you don't need to call readData
+
+                        // later on, experiment with commenting this line out, see how it is different.
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Error adding element", e);
+                    }
+                });
+    }
+
+    public void addComment(Comment q, String className, String questionName) {
+        //add wishlist item to the database
+        //this method will be overloaded nd the other method will incorporate the interface to
+        //handle asynch calls for reading data to keep myItems AL up to date.
+        addComment(q, className, questionName, new FirestoreCallback() {
+            @Override
+            public ArrayList<String> onCallback(ArrayList<String> myList) {
+                Log.i(TAG, "Indide addData, finished:  " + myList.toString());
+                return myList;
+            }
+        });
     }
 
     //https://firebase.google.com/docs/firestore/manage-data/add-data#java_16
