@@ -21,13 +21,21 @@ import androidx.fragment.app.FragmentTransaction;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
 
     String[] classData = {};
     LinearLayout parentLayout;
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     private Context mContext;
     FragmentHome thisFrag;
@@ -63,30 +71,41 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull AppViewHolder holder, int position) {
 
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         String className = classData[position];
-        holder.className.setText(className);
+        db.collection("classes").document(className).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            String imageID = (String) documentSnapshot.get("iconID");
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Log.d("test123", "onClick: clicked on: " + classData);
+                            holder.className.setText(className);
+                            Picasso.get().load(imageID).resize(200, 200).into(holder.imgIcon);
+                            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    // Log.d("test123", "onClick: clicked on: " + classData);
 
-                // Snackbar errorSnack = Snackbar.make(view, "Classes - " + classData[position], Snackbar.LENGTH_SHORT);
-                // errorSnack.show();
+                                    // Snackbar errorSnack = Snackbar.make(view, "Classes - " + classData[position], Snackbar.LENGTH_SHORT);
+                                    // errorSnack.show();
 
-                AppCompatActivity activity = (AppCompatActivity)view.getContext();
+                                    AppCompatActivity activity = (AppCompatActivity)view.getContext();
 
-                Intent intent = new Intent(activity, QuestionPage.class);
-                intent.putExtra("className", classData[position]);
-                activity.startActivity(intent);
+                                    Intent intent = new Intent(activity, QuestionPage.class);
+                                    intent.putExtra("className", classData[position]);
+                                    activity.startActivity(intent);
 
-                // put info to send here
-            }
-        });
+                                    // put info to send here
+                                }
+                            });
+                        }
+                    }
+                });
+
+
     }
-
-
-
 
     @Override
     public int getItemCount() {

@@ -2,15 +2,17 @@ package com.example.teachiou;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
 
 public class Question implements Parcelable {
-    private String body, title, answer, docID, imageID, time, username, userImageID;
+    private String body, title, answer, docID, imageID, username, userImageID, time;
     private boolean isAnswered;
     private Date currentTime = Calendar.getInstance().getTime();
-
+    private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
     protected Question(Parcel in) {
         body = in.readString();
@@ -52,17 +54,6 @@ public class Question implements Parcelable {
         parcel.writeByte((byte) (isAnswered ? 1 : 0));
     }
 
-    public Question(String body, String title, String answer, String docID, String imageID, boolean isAnswered) {
-        this.username = "";
-        this.body = body;
-        this.title = title;
-        this.answer = answer;
-        this.docID = docID;
-        this.imageID = imageID;
-        this.time = currentTime.toString();
-        this.isAnswered = isAnswered;
-    }
-
     public Question(String body, String title, String imageID, String username, String userImageID) {
         this.username = username;
         this.body = body;
@@ -71,27 +62,7 @@ public class Question implements Parcelable {
         this.docID = "";
         this.imageID = imageID;
         this.userImageID  = userImageID;
-        this.time = currentTime.toString();
-        this.isAnswered = false;
-    }
-
-    public Question(String body, String title, String answer, String docID, boolean isAnswered) {
-        this.body = body;
-        this.username = "";
-        this.title = title;
-        this.answer = answer;
-        this.docID = docID;
-        this.time = currentTime.toString();
-        this.isAnswered = isAnswered;
-    }
-
-    public Question(String body, String title) {
-        this.body = body;
-        this.username = "";
-        this.title = title;
-        this.answer = "";
-        this.docID = "";
-        this.time = currentTime.toString();
+        this.time = String.valueOf(timestamp.getTime());
         this.isAnswered = false;
     }
 

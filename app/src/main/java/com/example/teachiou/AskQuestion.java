@@ -121,7 +121,6 @@ public class AskQuestion extends AppCompatActivity {
                 if (documentSnapshot.exists()) {
                     String value = documentSnapshot.getString("NAME");
                     userImageID = documentSnapshot.getString("IMAGEID");
-
                     Question q = new Question(body, title, imageID, value, userImageID);
                     firebaseHelper.addQuestion(q, classname);
                     bodyET.setText("");

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ public class QuestionPage extends AppCompatActivity {
     ArrayList<Question> questionArrayList;
     QuestionListAdapter questionListAdapter;
     FirebaseFirestore db;
+
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,16 @@ public class QuestionPage extends AppCompatActivity {
         questionListAdapter = new QuestionListAdapter(QuestionPage.this, questionArrayList);
 
         recyclerView.setAdapter(questionListAdapter);
-
+        
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                questionArrayList.clear();
+                EventChangeListener();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         EventChangeListener();
 
     }
@@ -61,7 +74,7 @@ public class QuestionPage extends AppCompatActivity {
     private void EventChangeListener() {
         Intent intent = getIntent();
         c = intent.getStringExtra("className");
-        db.collection("classes").document(c).collection("questions")
+        db.collection("classes").document(c).collection("questions").orderBy("time", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

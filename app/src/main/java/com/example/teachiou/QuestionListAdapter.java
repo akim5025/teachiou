@@ -54,7 +54,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
         holder.tvBody.setText(question.getBody());
         holder.tvUsername.setText(question.getUsername());
         Picasso.get().load(question.getImageID()).into(holder.ivQuestion);
-        Picasso.get().load(question.getUserImageID()).into(holder.ivProfile);
+        Picasso.get().load(question.getUserImageID()).resize(200, 200).into(holder.ivProfile);
 
 
 

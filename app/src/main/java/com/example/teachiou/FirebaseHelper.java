@@ -166,6 +166,7 @@ public class FirebaseHelper {
         question.put("answer", q.getAnswer());
         question.put("username", q.getUsername());
         question.put("userImageID", q.getUserImageID());
+        question.put("time", q.getTime());
         db.collection("classes").document(className).collection("questions")
                 .add(question)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
