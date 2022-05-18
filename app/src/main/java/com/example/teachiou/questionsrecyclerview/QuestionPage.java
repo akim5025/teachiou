@@ -1,4 +1,4 @@
-package com.example.teachiou;
+package com.example.teachiou.questionsrecyclerview;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
+import com.example.teachiou.AskQuestion;
+import com.example.teachiou.R;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -57,7 +57,7 @@ public class QuestionPage extends AppCompatActivity {
         questionListAdapter = new QuestionListAdapter(QuestionPage.this, questionArrayList);
 
         recyclerView.setAdapter(questionListAdapter);
-        
+
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
