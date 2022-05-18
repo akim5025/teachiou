@@ -9,7 +9,7 @@ import java.util.Date;
 
 
 public class Question implements Parcelable {
-    private String body, title, answer, docID, imageID, username, userImageID, time;
+    private String body, title, answer, docID, imageID, username, userImageID, time, classname;
     private boolean isAnswered;
     private Date currentTime = Calendar.getInstance().getTime();
     private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -22,6 +22,7 @@ public class Question implements Parcelable {
         imageID = in.readString();
         time = in.readString();
         username = in.readString();
+        classname = in.readString();
         isAnswered = in.readByte() != 0;
     }
 
@@ -51,10 +52,11 @@ public class Question implements Parcelable {
         parcel.writeString(imageID);
         parcel.writeString(username);
         parcel.writeString(time);
+        parcel.writeString(classname);
         parcel.writeByte((byte) (isAnswered ? 1 : 0));
     }
 
-    public Question(String body, String title, String imageID, String username, String userImageID) {
+    public Question(String body, String title, String imageID, String username, String userImageID, String classname) {
         this.username = username;
         this.body = body;
         this.title = title;
@@ -64,6 +66,7 @@ public class Question implements Parcelable {
         this.userImageID  = userImageID;
         this.time = String.valueOf(timestamp.getTime());
         this.isAnswered = false;
+        this.classname = classname;
     }
 
     public Question() {
@@ -76,6 +79,10 @@ public class Question implements Parcelable {
     public void setBody(String body) {
         this.body = body;
     }
+
+    public String getClassname() {return classname;}
+
+    public void setClassname(String classname) {this.classname = classname;}
 
     public String getTitle() {
         return title;

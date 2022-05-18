@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teachiou.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         Comment comment = list.get(position);
         holder.tvUsername.setText(comment.getUsername());
         holder.tvAnswer.setText(comment.getAnswer());
+        Picasso.get().load(comment.getUserImageID()).resize(200, 200).into(holder.ivProfile);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             super(itemView);
 
             tvUsername = itemView.findViewById(R.id.commenttvUsername);
-            tvAnswer = itemView.findViewById(R.id.commentAnswerET);
+            tvAnswer = itemView.findViewById(R.id.commenttvBody);
             ivProfile = itemView.findViewById(R.id.commentivProfile);
         }
     }

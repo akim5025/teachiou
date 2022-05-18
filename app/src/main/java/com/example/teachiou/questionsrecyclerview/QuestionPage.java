@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-import com.example.teachiou.AskQuestion;
 import com.example.teachiou.R;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;

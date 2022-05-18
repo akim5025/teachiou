@@ -109,8 +109,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text"
-                        android:hint="Write a comment"
-                        android:text="Name" />
+                        android:hint="Write a comment"/>
 
                     <Button
                         android:id="@+id/submitAnswerButton"

@@ -22,7 +22,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".AskQuestion"
+            android:name=".questionsrecyclerview.AskQuestion"
             android:exported="false" />
         <activity
             android:name=".ViewQuestion"

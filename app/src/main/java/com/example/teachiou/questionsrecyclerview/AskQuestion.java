@@ -1,4 +1,4 @@
-package com.example.teachiou;
+package com.example.teachiou.questionsrecyclerview;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +18,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.teachiou.questionsrecyclerview.Question;
+import com.example.teachiou.FirebaseHelper;
+import com.example.teachiou.R;
+import com.example.teachiou.dashboard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -122,8 +124,9 @@ public class AskQuestion extends AppCompatActivity {
                 if (documentSnapshot.exists()) {
                     String value = documentSnapshot.getString("NAME");
                     userImageID = documentSnapshot.getString("IMAGEID");
-                    Question q = new Question(body, title, imageID, value, userImageID);
+                    Question q = new Question(body, title, imageID, value, userImageID, classname);
                     firebaseHelper.addQuestion(q, classname);
+                    Log.i("CLASSNAME", classname);
                     bodyET.setText("");
                     titleET.setText("");
 
@@ -139,10 +142,7 @@ public class AskQuestion extends AppCompatActivity {
 
     }
 
-    public void back(View v){
-        Intent intent = new Intent(AskQuestion.this, dashboard.class);
-        startActivity(intent);
-    }
+
 
     private String getFileExtention(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
@@ -189,5 +189,10 @@ public class AskQuestion extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void back(View v){
+        Intent intent = new Intent(AskQuestion.this, dashboard.class);
+        startActivity(intent);
     }
 }

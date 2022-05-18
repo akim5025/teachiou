@@ -188,7 +188,7 @@ public class FragmentNotifications extends Fragment {
                         }
                         else {
                             String switchTopic = (String) curSwitch.getText();
-                            switchTopic.replace(" ", "");
+                            switchTopic = switchTopic.replace(" ", "");
                             FirebaseMessaging.getInstance().unsubscribeFromTopic(switchTopic);
                         }
                     }
