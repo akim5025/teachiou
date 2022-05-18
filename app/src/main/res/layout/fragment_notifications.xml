@@ -9,25 +9,14 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/testNotifButton"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginBottom="96dp"
-        android:text="Test Notification"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/updateSettings"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="177dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="68dp"
         android:text="Update Notification Settings"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout

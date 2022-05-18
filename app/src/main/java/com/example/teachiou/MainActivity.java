@@ -109,15 +109,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void test(View v) {
-        Intent intent = new Intent(this, firebaseteseting.class);
-        startActivity(intent);
-
-    }
-
-    public void signOut(View v) {
-        mAuth.signOut();
-        authStatusTV.setText("Signed out");
-    }
 
 }

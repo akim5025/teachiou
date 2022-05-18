@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,23 +94,6 @@ public class FragmentNotifications extends Fragment {
         // Inflate the layout for this fragment
 
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        sendNotification = root.findViewById(R.id.testNotifButton);
-        FirebaseMessaging.getInstance().subscribeToTopic("all");
-        sendNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity)v.getContext();
-                FcmNotificationsSender notificationsSender = new FcmNotificationsSender(
-                        "/topics/CalcBC",
-                        "Andy Kim",
-                        "is cool",
-                        activity.getApplicationContext(),
-                        activity);
-                notificationsSender.SendNotifications();
-                Log.d("ISHAAAAAAAAAAAAAAAAAAN", "Notification Sent");
-                //https://www.youtube.com/watch?v=cyG5SAaucHs&t=16s
-            }
-        });
 
         firebaseHelper = new FirebaseHelper();
         firebaseHelper.attachReadDataToUser();
@@ -190,9 +174,13 @@ public class FragmentNotifications extends Fragment {
                             String switchTopic = (String) curSwitch.getText();
                             switchTopic = switchTopic.replace(" ", "");
                             FirebaseMessaging.getInstance().unsubscribeFromTopic(switchTopic);
+                            Log.i("REMOVED!!!!!!!!!!!!!!", switchTopic);
+
                         }
                     }
                 }
+                Toast toast = Toast.makeText((AppCompatActivity)v.getContext(), "Notification Settings Have Been Updated. Settings May Take a Minute to Apply", Toast.LENGTH_LONG);
+                toast.show();
             }
         });
 

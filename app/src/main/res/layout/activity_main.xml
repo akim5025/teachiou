@@ -12,13 +12,16 @@
         android:layout_height="63dp"
         android:ems="10"
         android:fontFamily="sans-serif-condensed"
-        android:hint="Enter password"
+        android:hint="   Enter password"
         android:inputType="textPassword"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.561" />
+
+
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -26,7 +29,8 @@
         android:layout_height="63dp"
         android:ems="10"
         android:fontFamily="sans-serif-condensed"
-        android:hint="Enter email"
+        android:hint="   Enter email"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -49,19 +53,6 @@
         app:layout_constraintVertical_bias="0.721" />
 
     <Button
-        android:id="@+id/signOutButton"
-        android:layout_width="105dp"
-        android:layout_height="67dp"
-        android:background="@drawable/round"
-        android:onClick="signOut"
-        android:text="Sign Out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.862" />
-
-    <Button
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,15 +65,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.052" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="147dp"
-        android:onClick="test"
-        android:text="test"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="227dp"
+        android:layout_height="122dp"
+        android:fontFamily="@font/sansprolight"
+        android:text="Sign In To Continue"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.296" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

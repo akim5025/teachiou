@@ -129,11 +129,17 @@ public class AskQuestion extends AppCompatActivity {
                     Log.i("CLASSNAME", classname);
                     bodyET.setText("");
                     titleET.setText("");
-
                 }
             }
         });
 
+        FcmNotificationsSender notificationsSender = new FcmNotificationsSender(
+                "/topics/" + classname.replace(" ", ""),
+                classname,
+                "A question has been added to " + classname,
+                getApplicationContext(),
+                AskQuestion.this);
+        notificationsSender.SendNotifications();
 
 
         //insert firebaseHelper code to addData
