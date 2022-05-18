@@ -100,7 +100,7 @@ public class FragmentNotifications extends Fragment {
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FcmNotificationsSender notificationsSender = new FcmNotificationsSender(
-                        "/topics/all",
+                        "/topics/CalcBC",
                         "Andy Kim",
                         "is cool",
                         activity.getApplicationContext(),
@@ -182,17 +182,19 @@ public class FragmentNotifications extends Fragment {
                         Switch curSwitch = (Switch) child;
                         if (curSwitch.isChecked()) {
                             String switchTopic = (String) curSwitch.getText();
+                            switchTopic = switchTopic.replace(" ", "");
                             FirebaseMessaging.getInstance().subscribeToTopic(switchTopic);
-                        } else {
+                            Log.i("PPPPPPPPPPP",switchTopic);
+                        }
+                        else {
                             String switchTopic = (String) curSwitch.getText();
+                            switchTopic.replace(" ", "");
                             FirebaseMessaging.getInstance().unsubscribeFromTopic(switchTopic);
                         }
                     }
                 }
             }
         });
-
-
 
         return root;
 
