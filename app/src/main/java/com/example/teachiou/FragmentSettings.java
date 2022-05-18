@@ -1,12 +1,18 @@
 package com.example.teachiou;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,10 @@ public class FragmentSettings extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Button signOutButton;
+
+    private FirebaseAuth mAuth;
 
     public FragmentSettings() {
         // Required empty public constructor
@@ -59,6 +69,21 @@ public class FragmentSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+        signOutButton = root.findViewById(R.id.signOutBtt);
+
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity)v.getContext();
+                mAuth.signOut();
+
+                Intent intent = new Intent(activity, MainActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+
+        return root;
     }
 }
