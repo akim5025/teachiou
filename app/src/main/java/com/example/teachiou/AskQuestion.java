@@ -1,4 +1,4 @@
-package com.example.teachiou.questionsrecyclerview;
+package com.example.teachiou;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +18,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.teachiou.FirebaseHelper;
-import com.example.teachiou.R;
-import com.example.teachiou.dashboard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;

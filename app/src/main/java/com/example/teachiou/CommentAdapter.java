@@ -1,4 +1,4 @@
-package com.example.teachiou.commentsrecyclerview;
+package com.example.teachiou;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.teachiou.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

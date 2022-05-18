@@ -1,9 +1,7 @@
-package com.example.teachiou.commentsrecyclerview;
+package com.example.teachiou;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.example.teachiou.questionsrecyclerview.Question;
 
 import java.sql.Timestamp;
 

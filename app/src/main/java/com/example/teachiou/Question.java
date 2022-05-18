@@ -1,4 +1,4 @@
-package com.example.teachiou.questionsrecyclerview;
+package com.example.teachiou;
 
 import android.os.Parcel;
 import android.os.Parcelable;

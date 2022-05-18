@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.text.method.KeyListener;
 
-import com.example.teachiou.questionsrecyclerview.Question;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
