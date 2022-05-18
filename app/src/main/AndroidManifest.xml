@@ -22,7 +22,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".AppAdapter$AskQuestion"
+            android:name=".questionsrecyclerview.AskQuestion"
             android:exported="false" />
         <activity
             android:name=".ViewQuestion"
@@ -33,7 +33,7 @@
         <activity android:name=".roleSelection" />
         <activity android:name=".ClassSelection" />
         <activity android:name=".SignUpScreen" />
-        <activity android:name=".FcmNotificationsSender$QuestionPage" />
+        <activity android:name=".questionsrecyclerview.QuestionPage" />
         <activity
             android:name=".loadScreenActivity"
             android:exported="true">

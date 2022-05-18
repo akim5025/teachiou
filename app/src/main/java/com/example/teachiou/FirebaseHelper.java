@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.teachiou.commentsrecyclerview.Comment;
+import com.example.teachiou.questionsrecyclerview.Question;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -142,7 +144,7 @@ public class FirebaseHelper {
                 });
     }
 
-    private void addQuestion(classListItem.Question q, String className, FirestoreCallback firestoreCallback) {
+    private void addQuestion(Question q, String className, FirestoreCallback firestoreCallback) {
         Map<String, Object> question = new HashMap<>();
         question.put("title", q.getTitle());
         question.put("body", q.getBody());
@@ -186,7 +188,7 @@ public class FirebaseHelper {
                 });
     }
 
-    public void addQuestion(classListItem.Question q, String c) {
+    public void addQuestion(Question q, String c) {
         //add wishlist item to the database
         //this method will be overloaded nd the other method will incorporate the interface to
         //handle asynch calls for reading data to keep myItems AL up to date.
@@ -199,7 +201,7 @@ public class FirebaseHelper {
         });
     }
 
-    private void addComment(dashboard.Comment c, String className, String questionID, FirestoreCallback firestoreCallback) {
+    private void addComment(Comment c, String className, String questionID, FirestoreCallback firestoreCallback) {
         Map<String, Object> comment = new HashMap<>();
         comment.put("answer", c.getAnswer());
         comment.put("username", c.getUsername());
@@ -238,7 +240,7 @@ public class FirebaseHelper {
                 });
     }
 
-    public void addComment(dashboard.Comment q, String className, String questionName) {
+    public void addComment(Comment q, String className, String questionName) {
         //add wishlist item to the database
         //this method will be overloaded nd the other method will incorporate the interface to
         //handle asynch calls for reading data to keep myItems AL up to date.
@@ -333,7 +335,7 @@ public class FirebaseHelper {
                 });
     }
 
-    public void updateAnswer(classListItem.Question q, String className, String docId) {
+    public void updateAnswer(Question q, String className, String docId) {
         // edit WishListItem w to the database
         // this method is overloaded and incorporates the interface to handle the asynch calls
         updateAnswer(q, className, docId, new FirestoreCallback() {
@@ -345,7 +347,7 @@ public class FirebaseHelper {
         });
     }
 
-    private void updateAnswer(classListItem.Question q, String className, String docId, FirestoreCallback firestoreCallback){
+    private void updateAnswer(Question q, String className, String docId, FirestoreCallback firestoreCallback){
         db.collection("classes").document(className).collection("questions")
                 .document(docId)
                 .update("answer", q)
@@ -409,8 +411,8 @@ public class FirebaseHelper {
 
     //https://stackoverflow.com/questions/46706433/firebase-firestore-get-data-from-collection
     //Showed me how to use Query
-    public ArrayList<classListItem.Question> getQuestions(String className){
-        ArrayList<classListItem.Question> qList = new ArrayList<>();
+    public ArrayList<Question> getQuestions(String className){
+        ArrayList<Question> qList = new ArrayList<>();
         db.collection("classes").document(className).collection("questions").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -420,7 +422,7 @@ public class FirebaseHelper {
                             return;
                         } else {
                             // Convert the whole Query Snapshot to a list of objects directly
-                            List<classListItem.Question> questions = documentSnapshots.toObjects(classListItem.Question.class);
+                            List<Question> questions = documentSnapshots.toObjects(Question.class);
 
                             // Add all to list
                             qList.addAll(questions);
