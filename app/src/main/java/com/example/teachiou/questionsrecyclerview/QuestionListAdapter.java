@@ -1,4 +1,4 @@
-package com.example.teachiou;
+package com.example.teachiou.questionsrecyclerview;
 
 
 import android.content.Context;
@@ -17,6 +17,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teachiou.FirebaseHelper;
+import com.example.teachiou.R;
+import com.example.teachiou.commentsrecyclerview.Comment;
+import com.example.teachiou.commentsrecyclerview.CommentAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
