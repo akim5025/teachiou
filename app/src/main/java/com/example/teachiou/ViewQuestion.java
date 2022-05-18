@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.text.method.KeyListener;
 
-import com.example.teachiou.questionsrecyclerview.Question;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,7 +23,7 @@ public class ViewQuestion extends AppCompatActivity {
 
     private EditText answerET;
     private TextView bodyTV;
-    private Question q;
+    private classListItem.Question q;
     private boolean isTeacher;
     private String c;
     private FirebaseAuth mAuth;

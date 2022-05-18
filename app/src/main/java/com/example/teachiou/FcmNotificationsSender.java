@@ -3,6 +3,17 @@ package com.example.teachiou;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -11,10 +22,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,6 +105,89 @@ public class FcmNotificationsSender {
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+
+    }
+
+    public static class QuestionPage extends AppCompatActivity {
+        // CITATION: Code from Wishlist project was used as starting point
+        private ArrayList<classListItem.Question> myList;
+        private static final String TAG = "Denna";
+        private String c;
+        RecyclerView recyclerView;
+        ArrayList<classListItem.Question> questionArrayList;
+        ClassSelection.QuestionListAdapter questionListAdapter;
+        FirebaseFirestore db;
+
+        SwipeRefreshLayout swipeRefreshLayout;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_question_page);
+
+            //myList.add(new Question());
+
+            //myList = MainActivity.firebaseHelper.getWishListItems();
+            Intent intent = getIntent();
+            c = intent.getStringExtra("className");
+            ArrayAdapter<classListItem.Question> listAdapter = new ArrayAdapter<>(
+                    this, android.R.layout.simple_list_item_1, myList);
+
+            recyclerView = findViewById(R.id.recyclerview);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            db = FirebaseFirestore.getInstance();
+            questionArrayList = new ArrayList<classListItem.Question>();
+            questionListAdapter = new ClassSelection.QuestionListAdapter(QuestionPage.this, questionArrayList);
+
+            recyclerView.setAdapter(questionListAdapter);
+
+            swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    questionArrayList.clear();
+                    EventChangeListener();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+            EventChangeListener();
+
+        }
+
+        private void EventChangeListener() {
+            Intent intent = getIntent();
+            c = intent.getStringExtra("className");
+            db.collection("classes").document(c).collection("questions").orderBy("time", Query.Direction.DESCENDING)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                            if (error != null) {
+                                Log.e("Firestore error", error.getMessage());
+                                return;
+                            }
+
+                            for (DocumentChange dc : value.getDocumentChanges()) {
+                                if (dc.getType() == DocumentChange.Type.ADDED) {
+                                    questionArrayList.add(dc.getDocument().toObject(classListItem.Question.class));
+                                }
+                            }
+
+                            questionListAdapter.notifyDataSetChanged();
+
+                        }
+                    });
+
+        }
+
+        public void newQuestion(View v){
+            Intent intent = new Intent(QuestionPage.this, AppAdapter.AskQuestion.class);
+            intent.putExtra("className", c);
+            startActivityForResult(intent, 1);
         }
 
 
