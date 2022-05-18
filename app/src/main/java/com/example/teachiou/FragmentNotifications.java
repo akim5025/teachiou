@@ -11,8 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,10 +41,20 @@ public class FragmentNotifications extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private ArrayList<String> classList = new ArrayList<String>();
+
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private Button sendNotification;
+
+    private static String uid;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    FirebaseHelper firebaseHelper;
+
 
     public FragmentNotifications() {
         // Required empty public constructor
@@ -76,8 +101,8 @@ public class FragmentNotifications extends Fragment {
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FcmNotificationsSender notificationsSender = new FcmNotificationsSender(
                         "/topics/all",
-                        "Class Name",
-                        "has been updated",
+                        "Andy Kim",
+                        "is cool",
                         activity.getApplicationContext(),
                         activity);
                 notificationsSender.SendNotifications();
@@ -85,6 +110,94 @@ public class FragmentNotifications extends Fragment {
                 //https://www.youtube.com/watch?v=cyG5SAaucHs&t=16s
             }
         });
+
+        firebaseHelper = new FirebaseHelper();
+        firebaseHelper.attachReadDataToUser();
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getUid();
+        db = FirebaseFirestore.getInstance();
+        db.collection("users").document(uid).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            Map<String, String> map = (HashMap) documentSnapshot.get("CLASSES");
+
+                            for (Map.Entry mapElement : map.entrySet()) {
+                                String value = (String) mapElement.getValue();
+                                classList.add(value);
+                            }
+                            Log.i("AHHHHHHHHHHHHHHHHH", classList.toString());
+
+                            Object[] objectClassesArray = classList.toArray();
+
+                            String[] stringClassArray = Arrays.copyOf(objectClassesArray, objectClassesArray.length, String[].class);
+
+
+                            LinearLayout switchLayout = (LinearLayout) root.findViewById(R.id.switchNotif);
+
+
+
+                            LinearLayout.LayoutParams params =
+                                    new LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.FILL_PARENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                            params.setMargins(30, 20, 30, 20);
+
+                            for (int i = 0; i < classList.size(); i++) {
+
+                                LayoutInflater inflater = getLayoutInflater();
+
+                                Switch swtTag = new Switch ((AppCompatActivity)root.getContext());
+
+                                for (int j = 0; j < 4; j++) {
+                                    swtTag.setLayoutParams(params);
+                                    swtTag.setWidth(90);
+                                    swtTag.setTag("switch"+i);
+                                    swtTag.setHeight(80);
+                                    swtTag.setGravity(11);
+                                    swtTag.setChecked(true);
+                                    swtTag.setText(classList.get(i));
+                                    swtTag.setTextSize(20);
+                                }
+
+                                switchLayout.addView(swtTag);
+
+
+                        }
+                    }
+                }
+                });
+
+        sendNotification = root.findViewById(R.id.updateSettings);
+        sendNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewGroup layout = (ViewGroup) root.findViewById(R.id.switchNotif);
+
+                for (int i = 0; i < layout.getChildCount(); i++) {
+                    View child = layout.getChildAt(i);
+                    if (child instanceof Switch) {
+                        Switch curSwitch = (Switch) child;
+                        if (curSwitch.isChecked()) {
+                            String switchTopic = (String) curSwitch.getText();
+                            FirebaseMessaging.getInstance().subscribeToTopic(switchTopic);
+                        } else {
+                            String switchTopic = (String) curSwitch.getText();
+                            FirebaseMessaging.getInstance().unsubscribeFromTopic(switchTopic);
+                        }
+                    }
+                }
+            }
+        });
+
+
+
         return root;
+
     }
+
+
+
 }
